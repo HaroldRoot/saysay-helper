@@ -620,9 +620,6 @@ document.addEventListener("DOMContentLoaded", () => {
             "Parenthesized Number",
             "Roman Numeral",
             "Small Roman Numeral",
-            "Roman Numeral C D",
-            "Roman Numeral Late Form",
-            "Roman Numeral Early Form"
         ];
 
         // 1. 按 Category 分组
