@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>说说文案编辑助手</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="app">
+        <header>
+            <h1>说说文案编辑助手</h1>
+        </header>
+
+        <nav class="tab-nav">
+            <div class="tab-row">
+                <button class="tab-link active" data-tab="font-replace">字体替换</button>
+                <button class="tab-link" data-tab="combining-marks">附加符号</button>
+                <button class="tab-link" data-tab="zalgo">故障文字</button>
+            </div>
+            <div class="tab-row">
+                <button class="tab-link" data-tab="martian">火星文</button>
+                <button class="tab-link" data-tab="dots">点阵文字</button>
+                <button class="tab-link" data-tab="qzone-emoji">空间表情</button>
+            </div>
+        </nav>
+
+        <main>
+            <section id="font-replace" class="tab-content active">
+                <nav class="sub-tab-nav">
+                    <button class="sub-tab-link active" data-subtab="font-english">英文专区</button>
+                    <button class="sub-tab-link" data-subtab="font-numbers">数字专区</button>
+                </nav>
+                <div id="font-english" class="sub-tab-content active">
+                    <div class="input-group">
+                        <label for="font-input">输入文本（英文和数字都可以）：</label>
+                        <textarea id="font-input" rows="1" placeholder="输入任意文本...">Tap to copy</textarea>
+                    </div>
+                    <div class="button-group">
+                        <button id="clear-btn" class="action-btn">清空</button>
+                        <button id="uppercase-btn" class="action-btn toggle-btn">转换为全大写</button>
+                        <button id="lowercase-btn" class="action-btn toggle-btn">转换为全小写</button>
+                    </div>
+                    <div id="font-output-container">
+                    </div>
+                </div>
+                <div id="font-numbers" class="sub-tab-content">
+                    <textarea id="numbers-textarea" placeholder="点击下面的数字卡片，数字将自动添加到此处..."></textarea>
+                    <div class="button-group">
+                        <button id="numbers-clear-btn" class="action-btn">清空</button>
+                        <button id="numbers-copy-btn" class="action-btn">复制到剪贴板</button>
+                    </div>
+                    <div id="numbers-display"></div>
+                </div>
+            </section>
+
+            <section id="combining-marks" class="tab-content">
+                <div class="input-group">
+                    <label for="marks-input">输入文本：</label>
+                    <textarea id="marks-input" rows="1" placeholder="输入任意文本..."></textarea>
+                </div>
+                <div class="button-group">
+                    <button id="marks-clear-btn" class="action-btn">清空</button>
+                    <button id="marks-uppercase-btn" class="action-btn toggle-btn">全大写（推荐）</button>
+                    <button id="marks-lowercase-btn" class="action-btn toggle-btn">全小写</button>
+                </div>
+                <div class="input-group">
+                    <label>选择附加符号（可多选）：</label>
+                    <div id="marks-buttons" class="marks-buttons"></div>
+                </div>
+                <div class="input-group">
+                    <label>处理方式：</label>
+                    <div id="process-buttons" class="marks-buttons"></div>
+                </div>
+                <div id="marks-output-container">
+                </div>
+            </section>
+
+            <section id="zalgo" class="tab-content">
+                <div class="input-group">
+                    <label for="zalgo-input">输入文本：</label>
+                    <textarea id="zalgo-input" rows="1" placeholder="输入任意文本..."></textarea>
+                </div>
+                <div class="controls-grid">
+                    <div class="control-group">
+                        <label for="zalgo-level">混乱程度：</label>
+                        <input id="zalgo-level" type="range" min="0" max="100" value="10">
+                    </div>
+                    <div class="control-group">
+                        <label>混乱方向：</label>
+                        <button id="zalgo-up" class="action-btn toggle-btn active">顶部</button>
+                        <button id="zalgo-mid" class="action-btn toggle-btn active">中部</button>
+                        <button id="zalgo-down" class="action-btn toggle-btn active">底部</button>
+                    </div>
+                </div>
+                <div id="zalgo-output-container">
+                </div>
+            </section>
+
+            <section id="martian" class="tab-content">
+                <div class="input-group">
+                    <label for="martian-input">输入文本：</label>
+                    <textarea id="martian-input" rows="1" placeholder="输入任意文本..."></textarea>
+                </div>
+                <div id="martian-output-container">
+                </div>
+            </section>
+
+            <section id="dots" class="tab-content">
+                <div class="input-group">
+                    <div>
+                        <label for="inputChar">输入文本：</label>
+                        <textarea id="inputChar" rows="1" placeholder="请输入一个汉字...">龙</textarea>
+                    </div>
+                    <div>
+                        <select id="fontSelect">
+                            <option value="SimSun, 宋体, serif">宋体 (SimSun)</option>
+                            <option value="KaiTi, 楷体, cursive">楷体 (KaiTi)</option>
+                            <option value="Microsoft YaHei, 微软雅黑, sans-serif" selected>微软雅黑 (默认)</option>
+                            <option value="SimHei, 黑体, sans-serif">黑体 (SimHei)</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <div class="two-col">
+                            <div class="control">
+                                <label for="dotSize">整体大小：</label>
+                                <input type="range" id="dotSize" value="40" min="16" max="64" step="8">
+                            </div>
+
+                            <div class="control">
+                                <label for="dotThreshold">笔画粗细：</label>
+                                <input type="range" id="dotThreshold" value="64" min="0" max="254">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div id="dots-output-container"></div>
+
+                <canvas id="hiddenCanvas"></canvas>
+            </section>
+
+            <section id="qzone-emoji" class="tab-content">
+                <div id="top-bar">
+                    <textarea id="qzone-input" placeholder="在此输入文本，支持 [em]e123[/em] 代码"></textarea>
+                    <div id="preview"></div>
+                </div>
+                <div id="tabs" aria-hidden="false"></div>
+                <div id="gallery"></div>
+                <div id="end-hint" class="hint" style="display:none;">已加载全部</div>
+            </section>
+        </main>
+    </div>
+
+    <div id="toast" class="toast">已复制到剪贴板！</div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

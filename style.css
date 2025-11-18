@@ -1,0 +1,530 @@
+:root {
+    --primary-color: #007aff;
+    --light-bg: #f4f4f9;
+    --card-bg: #ffffff;
+    --text-color: #333;
+    --border-color: #e0e0e0;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--light-bg);
+    color: var(--text-color);
+    line-height: 1.6;
+    display: flex;
+    justify-content: center;
+}
+
+#app {
+    width: 100%;
+    max-width: 480px;
+    background: #fff;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+main {
+    padding: 15px;
+}
+
+header {
+    background-color: var(--card-bg);
+    padding: 8px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+h1 {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+
+.tab-nav {
+    background-color: var(--card-bg);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.tab-row {
+    display: flex;
+}
+
+.tab-link {
+    flex: 1;
+    padding: 8px 10px;
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #555;
+    background: none;
+    border: none;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+}
+
+.tab-link.active {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+}
+
+.tab-link:active {
+    background-color: #f0f0f0;
+}
+
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+
+.input-group {
+    margin-bottom: 5px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.action-btn {
+    padding: 8px 12px;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.action-btn:hover {
+    background-color: #f0f0f0;
+}
+
+.action-btn:active {
+    background-color: #e0e0e0;
+}
+
+textarea,
+input[type="number"],
+select {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    font-family: inherit;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--card-bg);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+textarea {
+    resize: vertical;
+
+}
+
+select {
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M5%208l5%205%205-5z%22%20fill%3D%22%23555%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+    margin-bottom: 8px;
+}
+
+.result-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    margin-bottom: 15px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+
+.result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 10px;
+    background-color: #fcfcfc;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.result-title {
+    font-weight: bold;
+    color: #444;
+}
+
+.copy-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.copy-btn:active {
+    background-color: #0056b3;
+}
+
+.result-text {
+    padding: 15px;
+    font-size: 1.1rem;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+
+    font-family: inherit;
+}
+
+.controls-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.control-group {
+    background: var(--card-bg);
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.control-group label {
+    margin-bottom: 4px;
+}
+
+input[type="range"] {
+    width: 100%;
+}
+
+.checkbox-group {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.checkbox-group label {
+    margin: 0 0 0 5px;
+}
+
+.checkbox-group input {
+    margin-right: 3px;
+}
+
+.toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background-color: rgba(0, 0, 0, 0.75);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, transform 0.3s, visibility 0.3s;
+}
+
+.toast.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+#font-output-container {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+}
+
+.font-result-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 15px;
+    font-size: 1rem;
+    line-height: 1.5;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    flex-grow: 1;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    word-break: break-all;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.font-result-card:active {
+    background-color: #f0f0f0;
+}
+
+.marks-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 6px;
+    margin-bottom: 8px;
+}
+
+.marks-buttons .mark-btn.active,
+.marks-buttons .process-btn.active,
+.toggle-btn.active,
+.mark-btn.active {
+    background: #0078ff;
+    color: #fff;
+    border-color: #0078ff;
+}
+
+.marks-options label {
+    margin-right: 1em;
+}
+
+#hiddenCanvas {
+    display: none;
+}
+
+#top-bar {
+    /* position: sticky; */
+    top: 0;
+    background: #fff;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
+}
+
+#qzone-input {
+    width: 100%;
+    height: 80px;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    resize: none;
+}
+
+#preview {
+    padding: 10px;
+    background: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    min-height: 60px;
+}
+
+.emoji {
+    height: 22px;
+    vertical-align: middle;
+}
+
+/* Tabs */
+#tabs {
+    /* position: sticky; */
+    top: 180px;
+    background: white;
+    padding: 8px 6px;
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    white-space: nowrap;
+    border-bottom: 1px solid #eee;
+    z-index: 999;
+}
+
+.tab {
+    flex-shrink: 0;
+    padding: 6px 14px;
+    border-radius: 16px;
+    background: #eee;
+    cursor: pointer;
+    font-size: 14px;
+    user-select: none;
+}
+
+.tab.active {
+    background: #409eff;
+    color: #fff;
+    font-weight: 600;
+}
+
+/* Emoji Grid */
+#gallery {
+    column-count: 1;
+    /* 移动端可以调成2，桌面3 或 4 */
+    column-gap: 8px;
+    width: 95%;
+    max-width: 480px;
+    /* 让桌面显示和手机差不多宽 */
+    margin: 0 auto;
+    padding: 8px;
+}
+
+.emoji-card {
+    display: inline-block;
+    /* 必须，让卡片不拆开 */
+    margin-bottom: 8px;
+    background: #fff;
+    border-radius: 6px;
+    padding: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.emoji-card img {
+    height: 30px;
+    width: auto;
+    display: block;
+}
+
+.hint {
+    padding: 14px;
+    text-align: center;
+    color: #888;
+}
+
+.two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.control {
+    display: flex;
+    align-items: center;
+}
+
+.control input {
+    flex: 1;
+    /* 滑块自动填满 */
+}
+
+/* --- 二级 Tab 导航 --- */
+.sub-tab-nav {
+    display: flex;
+    background-color: var(--card-bg);
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 12px;
+}
+
+/* 按钮样式与主 tab-link 接近，但更小一些 */
+.sub-tab-link {
+    flex: 1;
+    padding: 6px 10px;
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #666;
+    background: none;
+    border: none;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: color 0.2s, border-color 0.2s, background-color 0.2s;
+}
+
+/* 激活状态 — 色调与主 tab 一致 */
+.sub-tab-link.active {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+}
+
+/* 点击时的轻微灰色反馈 */
+.sub-tab-link:active {
+    background-color: #f0f0f0;
+}
+
+/* 内容容器控制显示 */
+.sub-tab-content {
+    display: none;
+}
+
+.sub-tab-content.active {
+    display: block;
+}
+
+.category-title {
+    font-weight: normal;
+    padding: 6px 0 4px;
+    border-bottom: 1px dashed var(--border-color);
+    color: #7a869a;
+    font-size: 0.8rem;
+}
+
+#numbers-display {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.category-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.number-card {
+    padding: 8px;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 1.1rem;
+    line-height: 1.2;
+    min-width: 36px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.15s;
+    flex: 0 0 auto;
+}
+
+.number-card:hover {
+    background-color: #f5f7fa;
+}
+
+.number-card:active {
+    background-color: #e0e4e8;
+}
+
+@media (max-width: 600px) {
+    .category-title {
+        font-size: 0.75rem;
+        padding: 4px 0 3px;
+    }
+
+    .category-group {
+        gap: 5px;
+    }
+
+    .number-card {
+        padding: 8px;
+        min-width: 8px;
+        font-size: 1rem;
+    }
+}
