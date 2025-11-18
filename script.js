@@ -710,7 +710,7 @@ document.addEventListener("DOMContentLoaded", () => {
     combiningMarks.forEach(mark => {
         const btn = document.createElement('button');
         btn.className = 'mark-btn action-btn';
-        btn.textContent = `A${mark.char}`;
+        btn.textContent = `A${ZWSP}${mark.char}`;
         btn.dataset.char = mark.char;
 
         btn.addEventListener('click', () => {
