@@ -1,0 +1,562 @@
+{
+    "768": {
+        "Codepoint": "U+0300",
+        "Character": "̀",
+        "Name": "Combining Grave Accent"
+    },
+    "769": {
+        "Codepoint": "U+0301",
+        "Character": "́",
+        "Name": "Combining Acute Accent"
+    },
+    "770": {
+        "Codepoint": "U+0302",
+        "Character": "̂",
+        "Name": "Combining Circumflex Accent"
+    },
+    "771": {
+        "Codepoint": "U+0303",
+        "Character": "̃",
+        "Name": "Combining Tilde"
+    },
+    "772": {
+        "Codepoint": "U+0304",
+        "Character": "̄",
+        "Name": "Combining Macron"
+    },
+    "773": {
+        "Codepoint": "U+0305",
+        "Character": "̅",
+        "Name": "Combining Overline"
+    },
+    "774": {
+        "Codepoint": "U+0306",
+        "Character": "̆",
+        "Name": "Combining Breve"
+    },
+    "775": {
+        "Codepoint": "U+0307",
+        "Character": "̇",
+        "Name": "Combining Dot Above"
+    },
+    "776": {
+        "Codepoint": "U+0308",
+        "Character": "̈",
+        "Name": "Combining Diaeresis"
+    },
+    "777": {
+        "Codepoint": "U+0309",
+        "Character": "̉",
+        "Name": "Combining Hook Above"
+    },
+    "778": {
+        "Codepoint": "U+030A",
+        "Character": "̊",
+        "Name": "Combining Ring Above"
+    },
+    "779": {
+        "Codepoint": "U+030B",
+        "Character": "̋",
+        "Name": "Combining Double Acute Accent"
+    },
+    "780": {
+        "Codepoint": "U+030C",
+        "Character": "̌",
+        "Name": "Combining Caron"
+    },
+    "781": {
+        "Codepoint": "U+030D",
+        "Character": "̍",
+        "Name": "Combining Vertical Line Above"
+    },
+    "782": {
+        "Codepoint": "U+030E",
+        "Character": "̎",
+        "Name": "Combining Double Vertical Line Above"
+    },
+    "783": {
+        "Codepoint": "U+030F",
+        "Character": "̏",
+        "Name": "Combining Double Grave Accent"
+    },
+    "784": {
+        "Codepoint": "U+0310",
+        "Character": "̐",
+        "Name": "Combining Candrabindu"
+    },
+    "785": {
+        "Codepoint": "U+0311",
+        "Character": "̑",
+        "Name": "Combining Inverted Breve"
+    },
+    "786": {
+        "Codepoint": "U+0312",
+        "Character": "̒",
+        "Name": "Combining Turned Comma Above"
+    },
+    "787": {
+        "Codepoint": "U+0313",
+        "Character": "̓",
+        "Name": "Combining Comma Above"
+    },
+    "788": {
+        "Codepoint": "U+0314",
+        "Character": "̔",
+        "Name": "Combining Reversed Comma Above"
+    },
+    "789": {
+        "Codepoint": "U+0315",
+        "Character": "̕",
+        "Name": "Combining Comma Above Right"
+    },
+    "790": {
+        "Codepoint": "U+0316",
+        "Character": "̖",
+        "Name": "Combining Grave Accent Below"
+    },
+    "791": {
+        "Codepoint": "U+0317",
+        "Character": "̗",
+        "Name": "Combining Acute Accent Below"
+    },
+    "792": {
+        "Codepoint": "U+0318",
+        "Character": "̘",
+        "Name": "Combining Left Tack Below"
+    },
+    "793": {
+        "Codepoint": "U+0319",
+        "Character": "̙",
+        "Name": "Combining Right Tack Below"
+    },
+    "794": {
+        "Codepoint": "U+031A",
+        "Character": "̚",
+        "Name": "Combining Left Angle Above"
+    },
+    "795": {
+        "Codepoint": "U+031B",
+        "Character": "̛",
+        "Name": "Combining Horn"
+    },
+    "796": {
+        "Codepoint": "U+031C",
+        "Character": "̜",
+        "Name": "Combining Left Half Ring Below"
+    },
+    "797": {
+        "Codepoint": "U+031D",
+        "Character": "̝",
+        "Name": "Combining Up Tack Below"
+    },
+    "798": {
+        "Codepoint": "U+031E",
+        "Character": "̞",
+        "Name": "Combining Down Tack Below"
+    },
+    "799": {
+        "Codepoint": "U+031F",
+        "Character": "̟",
+        "Name": "Combining Plus Sign Below"
+    },
+    "800": {
+        "Codepoint": "U+0320",
+        "Character": "̠",
+        "Name": "Combining Minus Sign Below"
+    },
+    "801": {
+        "Codepoint": "U+0321",
+        "Character": "̡",
+        "Name": "Combining Palatalized Hook Below"
+    },
+    "802": {
+        "Codepoint": "U+0322",
+        "Character": "̢",
+        "Name": "Combining Retroflex Hook Below"
+    },
+    "803": {
+        "Codepoint": "U+0323",
+        "Character": "̣",
+        "Name": "Combining Dot Below"
+    },
+    "804": {
+        "Codepoint": "U+0324",
+        "Character": "̤",
+        "Name": "Combining Diaeresis Below"
+    },
+    "805": {
+        "Codepoint": "U+0325",
+        "Character": "̥",
+        "Name": "Combining Ring Below"
+    },
+    "806": {
+        "Codepoint": "U+0326",
+        "Character": "̦",
+        "Name": "Combining Comma Below"
+    },
+    "807": {
+        "Codepoint": "U+0327",
+        "Character": "̧",
+        "Name": "Combining Cedilla"
+    },
+    "808": {
+        "Codepoint": "U+0328",
+        "Character": "̨",
+        "Name": "Combining Ogonek"
+    },
+    "809": {
+        "Codepoint": "U+0329",
+        "Character": "̩",
+        "Name": "Combining Vertical Line Below"
+    },
+    "810": {
+        "Codepoint": "U+032A",
+        "Character": "̪",
+        "Name": "Combining Bridge Below"
+    },
+    "811": {
+        "Codepoint": "U+032B",
+        "Character": "̫",
+        "Name": "Combining Inverted Double Arch Below"
+    },
+    "812": {
+        "Codepoint": "U+032C",
+        "Character": "̬",
+        "Name": "Combining Caron Below"
+    },
+    "813": {
+        "Codepoint": "U+032D",
+        "Character": "̭",
+        "Name": "Combining Circumflex Accent Below"
+    },
+    "814": {
+        "Codepoint": "U+032E",
+        "Character": "̮",
+        "Name": "Combining Breve Below"
+    },
+    "815": {
+        "Codepoint": "U+032F",
+        "Character": "̯",
+        "Name": "Combining Inverted Breve Below"
+    },
+    "816": {
+        "Codepoint": "U+0330",
+        "Character": "̰",
+        "Name": "Combining Tilde Below"
+    },
+    "817": {
+        "Codepoint": "U+0331",
+        "Character": "̱",
+        "Name": "Combining Macron Below"
+    },
+    "818": {
+        "Codepoint": "U+0332",
+        "Character": "̲",
+        "Name": "Combining Low Line"
+    },
+    "819": {
+        "Codepoint": "U+0333",
+        "Character": "̳",
+        "Name": "Combining Double Low Line"
+    },
+    "820": {
+        "Codepoint": "U+0334",
+        "Character": "̴",
+        "Name": "Combining Tilde Overlay"
+    },
+    "821": {
+        "Codepoint": "U+0335",
+        "Character": "̵",
+        "Name": "Combining Short Stroke Overlay"
+    },
+    "822": {
+        "Codepoint": "U+0336",
+        "Character": "̶",
+        "Name": "Combining Long Stroke Overlay"
+    },
+    "823": {
+        "Codepoint": "U+0337",
+        "Character": "̷",
+        "Name": "Combining Short Solidus Overlay"
+    },
+    "824": {
+        "Codepoint": "U+0338",
+        "Character": "̸",
+        "Name": "Combining Long Solidus Overlay"
+    },
+    "825": {
+        "Codepoint": "U+0339",
+        "Character": "̹",
+        "Name": "Combining Right Half Ring Below"
+    },
+    "826": {
+        "Codepoint": "U+033A",
+        "Character": "̺",
+        "Name": "Combining Inverted Bridge Below"
+    },
+    "827": {
+        "Codepoint": "U+033B",
+        "Character": "̻",
+        "Name": "Combining Square Below"
+    },
+    "828": {
+        "Codepoint": "U+033C",
+        "Character": "̼",
+        "Name": "Combining Seagull Below"
+    },
+    "829": {
+        "Codepoint": "U+033D",
+        "Character": "̽",
+        "Name": "Combining X Above"
+    },
+    "830": {
+        "Codepoint": "U+033E",
+        "Character": "̾",
+        "Name": "Combining Vertical Tilde"
+    },
+    "831": {
+        "Codepoint": "U+033F",
+        "Character": "̿",
+        "Name": "Combining Double Overline"
+    },
+    "832": {
+        "Codepoint": "U+0340",
+        "Character": "̀",
+        "Name": "Combining Grave Tone Mark"
+    },
+    "833": {
+        "Codepoint": "U+0341",
+        "Character": "́",
+        "Name": "Combining Acute Tone Mark"
+    },
+    "834": {
+        "Codepoint": "U+0342",
+        "Character": "͂",
+        "Name": "Combining Greek Perispomeni"
+    },
+    "835": {
+        "Codepoint": "U+0343",
+        "Character": "̓",
+        "Name": "Combining Greek Koronis"
+    },
+    "836": {
+        "Codepoint": "U+0344",
+        "Character": "̈́",
+        "Name": "Combining Greek Dialytika Tonos"
+    },
+    "837": {
+        "Codepoint": "U+0345",
+        "Character": "ͅ",
+        "Name": "Combining Greek Ypogegrammeni"
+    },
+    "838": {
+        "Codepoint": "U+0346",
+        "Character": "͆",
+        "Name": "Combining Bridge Above"
+    },
+    "839": {
+        "Codepoint": "U+0347",
+        "Character": "͇",
+        "Name": "Combining Equals Sign Below"
+    },
+    "840": {
+        "Codepoint": "U+0348",
+        "Character": "͈",
+        "Name": "Combining Double Vertical Line Below"
+    },
+    "841": {
+        "Codepoint": "U+0349",
+        "Character": "͉",
+        "Name": "Combining Left Angle Below"
+    },
+    "842": {
+        "Codepoint": "U+034A",
+        "Character": "͊",
+        "Name": "Combining Not Tilde Above"
+    },
+    "843": {
+        "Codepoint": "U+034B",
+        "Character": "͋",
+        "Name": "Combining Homothetic Above"
+    },
+    "844": {
+        "Codepoint": "U+034C",
+        "Character": "͌",
+        "Name": "Combining Almost Equal To Above"
+    },
+    "845": {
+        "Codepoint": "U+034D",
+        "Character": "͍",
+        "Name": "Combining Left Right Arrow Below"
+    },
+    "846": {
+        "Codepoint": "U+034E",
+        "Character": "͎",
+        "Name": "Combining Upwards Arrow Below"
+    },
+    "847": {
+        "Codepoint": "U+034F",
+        "Character": "͏",
+        "Name": "Combining Grapheme Joiner"
+    },
+    "848": {
+        "Codepoint": "U+0350",
+        "Character": "͐",
+        "Name": "Combining Right Arrowhead Above"
+    },
+    "849": {
+        "Codepoint": "U+0351",
+        "Character": "͑",
+        "Name": "Combining Left Half Ring Above"
+    },
+    "850": {
+        "Codepoint": "U+0352",
+        "Character": "͒",
+        "Name": "Combining Fermata"
+    },
+    "851": {
+        "Codepoint": "U+0353",
+        "Character": "͓",
+        "Name": "Combining X Below"
+    },
+    "852": {
+        "Codepoint": "U+0354",
+        "Character": "͔",
+        "Name": "Combining Left Arrowhead Below"
+    },
+    "853": {
+        "Codepoint": "U+0355",
+        "Character": "͕",
+        "Name": "Combining Right Arrowhead Below"
+    },
+    "854": {
+        "Codepoint": "U+0356",
+        "Character": "͖",
+        "Name": "Combining Right Arrowhead And Up Arrowhead Below"
+    },
+    "855": {
+        "Codepoint": "U+0357",
+        "Character": "͗",
+        "Name": "Combining Right Half Ring Above"
+    },
+    "856": {
+        "Codepoint": "U+0358",
+        "Character": "͘",
+        "Name": "Combining Dot Above Right"
+    },
+    "857": {
+        "Codepoint": "U+0359",
+        "Character": "͙",
+        "Name": "Combining Asterisk Below"
+    },
+    "858": {
+        "Codepoint": "U+035A",
+        "Character": "͚",
+        "Name": "Combining Double Ring Below"
+    },
+    "859": {
+        "Codepoint": "U+035B",
+        "Character": "͛",
+        "Name": "Combining Zigzag Above"
+    },
+    "860": {
+        "Codepoint": "U+035C",
+        "Character": "͜",
+        "Name": "Combining Double Breve Below"
+    },
+    "861": {
+        "Codepoint": "U+035D",
+        "Character": "͝",
+        "Name": "Combining Double Breve"
+    },
+    "862": {
+        "Codepoint": "U+035E",
+        "Character": "͞",
+        "Name": "Combining Double Macron"
+    },
+    "863": {
+        "Codepoint": "U+035F",
+        "Character": "͟",
+        "Name": "Combining Double Macron Below"
+    },
+    "864": {
+        "Codepoint": "U+0360",
+        "Character": "͠",
+        "Name": "Combining Double Tilde"
+    },
+    "865": {
+        "Codepoint": "U+0361",
+        "Character": "͡",
+        "Name": "Combining Double Inverted Breve"
+    },
+    "866": {
+        "Codepoint": "U+0362",
+        "Character": "͢",
+        "Name": "Combining Double Rightwards Arrow Below"
+    },
+    "867": {
+        "Codepoint": "U+0363",
+        "Character": "ͣ",
+        "Name": "Combining Latin Small Letter A"
+    },
+    "868": {
+        "Codepoint": "U+0364",
+        "Character": "ͤ",
+        "Name": "Combining Latin Small Letter E"
+    },
+    "869": {
+        "Codepoint": "U+0365",
+        "Character": "ͥ",
+        "Name": "Combining Latin Small Letter I"
+    },
+    "870": {
+        "Codepoint": "U+0366",
+        "Character": "ͦ",
+        "Name": "Combining Latin Small Letter O"
+    },
+    "871": {
+        "Codepoint": "U+0367",
+        "Character": "ͧ",
+        "Name": "Combining Latin Small Letter U"
+    },
+    "872": {
+        "Codepoint": "U+0368",
+        "Character": "ͨ",
+        "Name": "Combining Latin Small Letter C"
+    },
+    "873": {
+        "Codepoint": "U+0369",
+        "Character": "ͩ",
+        "Name": "Combining Latin Small Letter D"
+    },
+    "874": {
+        "Codepoint": "U+036A",
+        "Character": "ͪ",
+        "Name": "Combining Latin Small Letter H"
+    },
+    "875": {
+        "Codepoint": "U+036B",
+        "Character": "ͫ",
+        "Name": "Combining Latin Small Letter M"
+    },
+    "876": {
+        "Codepoint": "U+036C",
+        "Character": "ͬ",
+        "Name": "Combining Latin Small Letter R"
+    },
+    "877": {
+        "Codepoint": "U+036D",
+        "Character": "ͭ",
+        "Name": "Combining Latin Small Letter T"
+    },
+    "878": {
+        "Codepoint": "U+036E",
+        "Character": "ͮ",
+        "Name": "Combining Latin Small Letter V"
+    },
+    "879": {
+        "Codepoint": "U+036F",
+        "Character": "ͯ",
+        "Name": "Combining Latin Small Letter X"
+    }
+}
