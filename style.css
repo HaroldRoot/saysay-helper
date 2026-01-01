@@ -63,7 +63,6 @@ h1 {
     flex: 1;
     padding: 8px 10px;
     text-align: center;
-    font-size: 0.9rem;
     font-weight: 500;
     color: #555;
     background: none;
@@ -99,7 +98,9 @@ h1 {
 .input-group label {
     display: block;
     margin-bottom: 8px;
-    font-weight: 500;
+    font-weight: normal;
+    font-size: 0.75rem;
+    color: #7a869a;
 }
 
 .button-group {
@@ -114,7 +115,6 @@ h1 {
     background-color: var(--card-bg);
     border: 1px solid var(--border-color);
     border-radius: 6px;
-    font-size: 0.9rem;
     cursor: pointer;
     transition: background-color 0.2s;
 }
@@ -132,7 +132,6 @@ input[type="number"],
 select {
     width: 100%;
     padding: 12px;
-    font-size: 1rem;
     font-family: inherit;
     border: 1px solid var(--border-color);
     border-radius: 8px;
@@ -216,6 +215,7 @@ select {
     padding: 15px;
     border-radius: 8px;
     border: 1px solid var(--border-color);
+    margin-bottom: 8px;
 }
 
 .control-group label {
@@ -274,7 +274,7 @@ input[type="range"] {
     background-color: var(--card-bg);
     border: 1px solid var(--border-color);
     border-radius: 8px;
-    padding: 15px;
+    padding: 8px 12px;
     font-size: 1rem;
     line-height: 1.5;
     cursor: pointer;
@@ -327,7 +327,6 @@ input[type="range"] {
     width: 100%;
     height: 80px;
     padding: 8px;
-    font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 8px;
     box-sizing: border-box;
@@ -363,11 +362,11 @@ input[type="range"] {
 
 .tab {
     flex-shrink: 0;
-    padding: 6px 14px;
+    padding: 6px 8px;
     border-radius: 16px;
     background: #eee;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 12px;
     user-select: none;
 }
 

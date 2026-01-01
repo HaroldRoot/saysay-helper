@@ -10,10 +10,6 @@
 
 <body>
     <div id="app">
-        <header>
-            <h1>说说文案编辑助手</h1>
-        </header>
-
         <nav class="tab-nav">
             <div class="tab-row">
                 <button class="tab-link active" data-tab="font-replace">字体替换</button>
@@ -23,7 +19,7 @@
             <div class="tab-row">
                 <button class="tab-link" data-tab="martian">火星文</button>
                 <button class="tab-link" data-tab="dots">点阵文字</button>
-                <button class="tab-link" data-tab="qzone-emoji">空间表情</button>
+                <button class="tab-link" data-tab="qzone-emoji">空间隐藏表情</button>
             </div>
         </nav>
 
@@ -82,18 +78,14 @@
                 <div class="input-group">
                     <label for="zalgo-input">输入文本：</label>
                     <textarea id="zalgo-input" rows="1" placeholder="输入任意文本..."></textarea>
-                </div>
-                <div class="controls-grid">
+                    <label for="zalgo-level">故障程度：</label>
                     <div class="control-group">
-                        <label for="zalgo-level">混乱程度：</label>
                         <input id="zalgo-level" type="range" min="0" max="100" value="10">
                     </div>
-                    <div class="control-group">
-                        <label>混乱方向：</label>
-                        <button id="zalgo-up" class="action-btn toggle-btn active">顶部</button>
-                        <button id="zalgo-mid" class="action-btn toggle-btn active">中部</button>
-                        <button id="zalgo-down" class="action-btn toggle-btn active">底部</button>
-                    </div>
+                    <label>故障方向：</label>
+                    <button id="zalgo-up" class="action-btn toggle-btn active">顶部</button>
+                    <button id="zalgo-mid" class="action-btn toggle-btn active">中部</button>
+                    <button id="zalgo-down" class="action-btn toggle-btn active">底部</button>
                 </div>
                 <div id="zalgo-output-container">
                 </div>
