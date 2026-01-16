@@ -1024,135 +1024,214 @@ document.addEventListener("DOMContentLoaded", () => {
     martianInput.addEventListener('input', updateMartianOutput);
     martianInput.addEventListener("input", () => autoResize(martianInput));
 
-    // --- 盲文点阵 ---
+    // --- 配置与 DOM ---
     const inputChar = document.getElementById('inputChar');
     const dotSizeInput = document.getElementById('dotSize');
     const fontSelect = document.getElementById('fontSelect');
     const dotThresholdInput = document.getElementById('dotThreshold');
     const canvas = document.getElementById('hiddenCanvas');
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d', { willReadFrequently: true }); // 优化读取性能
     const dotsOutputContainer = document.getElementById("dots-output-container");
 
-    // 盲文图案的核心映射函数
-    // 根据 ISO/TR 11548-1 标准，将 8 个点（2x4 矩阵）转换为 Unicode 偏移量
-    // 点编号 (从左到右, 从上到下): 1, 4, 2, 5, 3, 6, 7, 8
-    // 对应位权值 (十六进制): 1, 8, 2, 10, 4, 20, 40, 80
+    // --- 核心常量 ---
+    // 盲文空字符 (用于判断是否为空格)
+    const EMPTY_BRAILLE = String.fromCharCode(0x2800);
+
     const BRAILLE_DOT_WEIGHTS = [
-        0x01, 0x08, // 点 1 (左上), 点 4
-        0x02, 0x10, // 点 2, 点 5
-        0x04, 0x20, // 点 3, 点 6
-        0x40, 0x80  // 点 7, 点 8
+        0x01, 0x08, // 1, 4
+        0x02, 0x10, // 2, 5
+        0x04, 0x20, // 3, 6
+        0x40, 0x80  // 7, 8
     ];
-    const BRAILLE_OFFSET = 0x2800; // 盲文图案块的 Unicode 起始值
+    const BRAILLE_OFFSET = 0x2800;
+
+    // --- 核心逻辑 ---
 
     /**
-     * 将 8 个布尔值 (2x4 像素矩阵) 转换为对应的盲文 Unicode 字符。
-     * @param {boolean[]} dots - 8个点的状态 (true=有点, false=无点). 顺序是 1, 4, 2, 5, 3, 6, 7, 8.
-     * @returns {string} 对应的盲文 Unicode 字符。
+     * 将 8 点布尔数组转为字符
      */
     function getBrailleChar(dots) {
         let offset = 0;
         for (let i = 0; i < 8; i++) {
-            if (dots[i]) {
-                offset += BRAILLE_DOT_WEIGHTS[i];
-            }
+            if (dots[i]) offset += BRAILLE_DOT_WEIGHTS[i];
         }
-        // 将十六进制偏移量加上基值，然后转换为字符
         return String.fromCharCode(BRAILLE_OFFSET + offset);
     }
 
     /**
-     * 核心转换函数：使用 Canvas API 将汉字转换为盲文图案字符画
+     * 智能裁剪算法：删除盲文矩阵四周的空白
+     * @param {string} rawMatrixStr - 原始的包含大量空白的盲文字符串
+     * @returns {string} 裁剪后的字符串
      */
-    function convertToBrailleMatrix() {
-        const char = inputChar.value.trim().charAt(0); // 取第一个字符
-        let size = parseInt(dotSizeInput.value, 10);
-        const font = fontSelect.value;
-        const threshold = parseInt(dotThresholdInput.value, 10);
+    function trimBrailleMatrix(rawMatrixStr) {
+        // 1. 转为二维数组
+        let lines = rawMatrixStr.split('\n');
 
-        if (isNaN(size) || size < 16 || size % 8 !== 0) {
-            alert("像素分辨率必须是 8 的倍数 (如 32, 40, 48)！");
-            // 自动修正到最近的 8 的倍数
-            size = Math.max(16, Math.round(size / 8) * 8);
-            dotSizeInput.value = size;
+        // 移除空行（如果某行全是空盲文 U+2800 或 普通空格）
+        // 注意：Canvas 映射出的空是 \u2800，但为了保险也正则匹配空白
+        const isEmptyChar = (ch) => ch === EMPTY_BRAILLE || ch === ' ' || ch === '\r';
+
+        // 2. 寻找上下边界
+        let top = 0;
+        let bottom = lines.length - 1;
+
+        // 从上往下找非空行
+        while (top <= bottom && lines[top].split('').every(isEmptyChar)) {
+            top++;
+        }
+        // 从下往上找非空行
+        while (bottom >= top && lines[bottom].split('').every(isEmptyChar)) {
+            bottom--;
         }
 
-        // 1. 设置 Canvas 尺寸
+        // 全是空的（比如输入了空格）
+        if (top > bottom) return "";
+
+        // 截取有效行
+        lines = lines.slice(top, bottom + 1);
+
+        // 3. 寻找左右边界 (在有效行范围内寻找)
+        let left = lines[0].length; // 设为最大可能值
+        let right = 0;
+
+        lines.forEach(line => {
+            const chars = line.split('');
+            // 找该行第一个非空字符索引
+            const firstIdx = chars.findIndex(c => !isEmptyChar(c));
+            // 找该行最后一个非空字符索引
+            let lastIdx = -1;
+            for (let i = chars.length - 1; i >= 0; i--) {
+                if (!isEmptyChar(chars[i])) {
+                    lastIdx = i;
+                    break;
+                }
+            }
+
+            if (firstIdx !== -1) {
+                left = Math.min(left, firstIdx);
+                right = Math.max(right, lastIdx);
+            }
+        });
+
+        // 4. 根据左右边界裁剪每一行
+        const trimmedLines = lines.map(line => {
+            // 截取并在右侧稍微保留一点 padding (可选，视视觉效果而定)
+            // 既然要做字符画，通常贴边剪裁比较好
+            return line.substring(left, right + 1);
+        });
+
+        return trimmedLines.join('\n');
+    }
+
+    /**
+     * 处理单个字符的生成
+     */
+    function generateBrailleForChar(char, size, font, threshold) {
+        // 跳过无意义的空白符
+        if (!char.trim()) return null;
+
+        // 1. 重置 Canvas
         canvas.width = size;
         canvas.height = size;
         ctx.clearRect(0, 0, size, size);
 
-        // 2. 绘制字符
-        const fontSize = size * 0.9;
+        // 2. 绘制
+        const fontSize = size * 0.9; // 稍微留点余地，防止出界
         ctx.font = `${fontSize}px ${font}`;
         ctx.fillStyle = '#000000';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.fillText(char, size / 2, size / 2);
+        // 关键：为了垂直居中更准确，可以调整 y 坐标
+        // 某些字体的 middle 对齐在 Canvas 中会有偏差，微调 + size * 0.05
+        ctx.fillText(char, size / 2, size / 2 + size * 0.05);
 
-        // 3. 获取像素数据
+        // 3. 提取数据
         const imageData = ctx.getImageData(0, 0, size, size);
         const data = imageData.data;
 
-        let brailleMatrix = '';
+        let rawOutput = '';
+        const BRAILLE_WIDTH = 2;
+        const BRAILLE_HEIGHT = 4;
 
-        // 4. 盲文模式的关键：以 2x4 的块遍历 Canvas
-        const BRAILLE_WIDTH = 2; // 盲文单元格的像素宽度
-        const BRAILLE_HEIGHT = 4; // 盲文单元格的像素高度
-
-        // 垂直方向的字符数 = size / 4
+        // 遍历生成完整矩阵
         for (let charY = 0; charY < size / BRAILLE_HEIGHT; charY++) {
             let row = '';
-            // 水平方向的字符数 = size / 2
             for (let charX = 0; charX < size / BRAILLE_WIDTH; charX++) {
-                // 存储 8 个子像素的状态（用于 getBrailleChar）
                 let dots = [];
-
-                // 像素的起始坐标
                 const startX = charX * BRAILLE_WIDTH;
                 const startY = charY * BRAILLE_HEIGHT;
 
-                // 盲文点的顺序：
-                // (1, 2, 3) 在左列，(4, 5, 6) 在右列，(7, 8) 在底行
-                // 我们使用 (行, 列) 坐标来对应点阵
                 const PIXEL_MAP = [
-                    [0, 0], [0, 1], // 点 1, 4 (第一行)
-                    [1, 0], [1, 1], // 点 2, 5 (第二行)
-                    [2, 0], [2, 1], // 点 3, 6 (第三行)
-                    [3, 0], [3, 1]  // 点 7, 8 (第四行)
+                    [0, 0], [0, 1],
+                    [1, 0], [1, 1],
+                    [2, 0], [2, 1],
+                    [3, 0], [3, 1]
                 ];
 
                 for (const [dy, dx] of PIXEL_MAP) {
                     const x = startX + dx;
                     const y = startY + dy;
-
+                    // 边界检查（防止 size 不是 8 倍数时越界，虽然下面代码已修正 size）
+                    if (x >= size || y >= size) {
+                        dots.push(false);
+                        continue;
+                    }
                     const index = (y * size + x) * 4;
                     const alpha = data[index + 3];
-
-                    // 如果透明度大于阈值，则认为该点被填充
                     dots.push(alpha > threshold);
                 }
-
                 row += getBrailleChar(dots);
             }
-            brailleMatrix += row + '\n';
+            rawOutput += row + '\n';
         }
 
-        // 5. 输出结果
-        dotsOutputContainer.innerHTML = "";
-        const card = createResultCard(brailleMatrix);
-        dotsOutputContainer.appendChild(card);
+        // 4. 执行智能裁剪并返回
+        return trimBrailleMatrix(rawOutput);
     }
 
-    // 绑定事件
-    inputChar.addEventListener('input', convertToBrailleMatrix);
-    inputChar.addEventListener("input", () => autoResize(inputChar));
-    dotSizeInput.addEventListener('change', convertToBrailleMatrix);
-    fontSelect.addEventListener('change', convertToBrailleMatrix);
-    dotThresholdInput.addEventListener('change', convertToBrailleMatrix);
+    /**
+     * 主入口：处理所有文本
+     */
+    function processText() {
+        const text = inputChar.value; // 不做 trim，保留用户可能想要的中间空格逻辑，但在生成时会跳过
+        let size = parseInt(dotSizeInput.value, 10);
+        const font = fontSelect.value;
+        const threshold = parseInt(dotThresholdInput.value, 10);
 
-    // 页面加载时执行一次默认转换
-    convertToBrailleMatrix();
+        // 修正 size
+        if (isNaN(size) || size < 16) size = 16;
+        size = Math.round(size / 8) * 8; // 强制对齐 8
+        dotSizeInput.value = size; // 回填修正后的值
+
+        dotsOutputContainer.innerHTML = ""; // 清空旧结果
+
+        // 将字符串转为数组 (支持 Emoji 等双字节字符)
+        const chars = Array.from(text);
+
+        let brailleArtString = "";
+
+        chars.forEach(char => {
+            const brailleArt = generateBrailleForChar(char, size, font, threshold);
+
+            if (brailleArt) {
+                // 创建展示卡片
+                if (brailleArtString == "") { brailleArtString = brailleArt; }
+                else brailleArtString = brailleArtString + '\n' + brailleArt;
+                dotsOutputContainer.innerHTML = "";
+                const card = createResultCard(brailleArtString);
+                dotsOutputContainer.appendChild(card);
+            }
+        });
+    }
+
+    // 绑定事件 (防抖可以优化性能，这里先直接绑定)
+    inputChar.addEventListener('input', processText);
+    dotSizeInput.addEventListener('change', processText); // change 比 input 更节省计算资源
+    fontSelect.addEventListener('change', processText);
+    dotThresholdInput.addEventListener('change', processText);
+
+    // 初始化
+    processText();
 
     // --- 空间表情 ---
     const JSON_URL = "qzone_emojis.json";
