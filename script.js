@@ -1233,8 +1233,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // 初始化
     processText();
 
-    // --- 空间表情 ---
+    // 空间表情
     const JSON_URL = "qzone_emojis.json";
+    // 在这里指定你想要的 Tab 顺序，未定义的组会排在后面
+    const TAB_ORDER = ["罗小黑", "暴走漫画", "古早1", "古早2"];
 
     let allData = {};
     let groups = {};
@@ -1254,8 +1256,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         buildGroups();
         renderTabs();
-        // 默认选第一个组
-        const first = Object.keys(groups)[0] || null;
+
+        // 根据自定义顺序选择第一个存在的组
+        const sortedKeys = getSortedGroupKeys();
+        const first = sortedKeys[0] || null;
         if (first) switchGroup(first);
     }
 
@@ -1274,7 +1278,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const out = {};
         for (const [k, v] of Object.entries(json || {})) {
-            // k 应该像 "[em]e123[/em]"
             if (!/^\[em]e\d+\[\/em]$/i.test(k)) continue;
             if (typeof v === "string") {
                 out[k] = { file: v, group: "默认" };
@@ -1285,7 +1288,6 @@ document.addEventListener("DOMContentLoaded", () => {
         return out;
     }
 
-    /* ---- 构建 groups 数据结构 ---- */
     function buildGroups() {
         groups = {};
         for (const [code, info] of Object.entries(allData)) {
@@ -1293,7 +1295,6 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!groups[g]) groups[g] = [];
             groups[g].push({ code, file: info.file });
         }
-        // 对每组按数字排序
         const num = s => {
             const m = s.file.match(/^e(\d+)\.gif$/i);
             return m ? parseInt(m[1], 10) : 0;
@@ -1303,11 +1304,27 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    /* ---- 渲染 Tabs ---- */
+    // 辅助函数：获取排序后的组名数组
+    function getSortedGroupKeys() {
+        const keys = Object.keys(groups);
+        return keys.sort((a, b) => {
+            let indexA = TAB_ORDER.indexOf(a);
+            let indexB = TAB_ORDER.indexOf(b);
+            // 如果不在 TAB_ORDER 里，则排到后面
+            if (indexA === -1) indexA = 999;
+            if (indexB === -1) indexB = 999;
+            return indexA - indexB || a.localeCompare(b);
+        });
+    }
+
+    // 渲染 Tabs
     function renderTabs() {
         const tabs = document.getElementById("tabs");
         tabs.innerHTML = "";
-        for (const g of Object.keys(groups)) {
+
+        const sortedKeys = getSortedGroupKeys();
+
+        for (const g of sortedKeys) {
             const t = document.createElement("div");
             t.className = "tab";
             t.dataset.group = g;
@@ -1317,7 +1334,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    /* ---- 切换组 ---- */
+    // 切换组
     function switchGroup(g) {
         currentGroup = g;
         loaded = 0;
@@ -1325,17 +1342,14 @@ document.addEventListener("DOMContentLoaded", () => {
         tabs.forEach(t => t.classList.toggle("active", t.dataset.group === g));
         const gallery = document.getElementById("gallery");
         gallery.innerHTML = "";
-        document.getElementById("end-hint").style.display = "none";
-        loadMore().then(() => ensureFill()); // 加载第一批并确保填满视口
+        loadMore().then(() => ensureFill());
     }
 
-    /* ---- 加载下一批 ---- */
+    // 加载下一批
     async function loadMore() {
         const arr = groups[currentGroup] || [];
-        if (loaded >= arr.length) {
-            document.getElementById("end-hint").style.display = "block";
-            return;
-        }
+        if (loaded >= arr.length) return; // 移除 end-hint 操作
+
         const gallery = document.getElementById("gallery");
         const end = Math.min(loaded + batchSize, arr.length);
         const slice = arr.slice(loaded, end);
@@ -1361,9 +1375,8 @@ document.addEventListener("DOMContentLoaded", () => {
         gallery.appendChild(frag);
     }
 
-    /* ---- 确保内容填充到视口以触发滚动（防止一次加载不足以滚动） ---- */
+    // 确保内容填充
     async function ensureFill() {
-        // 如果 gallery 内容高度小于视口并且还有未加载项，就继续加载
         const gallery = document.getElementById("gallery");
         let safety = 0;
         while (document.documentElement.scrollHeight <= window.innerHeight + 1 && loaded < (groups[currentGroup] || []).length && safety < 20) {
@@ -1371,12 +1384,9 @@ document.addEventListener("DOMContentLoaded", () => {
             await new Promise(r => setTimeout(r, 20));
             safety++;
         }
-        if (loaded >= (groups[currentGroup] || []).length) {
-            document.getElementById("end-hint").style.display = "block";
-        }
     }
 
-    /* ---- 滚动加载更多 ---- */
+    // 滚动加载更多
     let scrollTimer = null;
     window.addEventListener("scroll", () => {
         if (scrollTimer) clearTimeout(scrollTimer);
@@ -1387,28 +1397,27 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 80);
     });
 
-    /* ---- 点击卡片插入到输入框 ---- */
+    // 点击卡片插入到输入框
     function onSelectCard(e) {
         const code = this.dataset.code;
         const input = document.getElementById("qzone-input");
-        const start = input.selectionStart ?? input.value.length;
-        const end = input.selectionEnd ?? input.value.length;
-        const text = input.value;
-        input.value = text.slice(0, start) + code + text.slice(end);
-        input.selectionStart = input.selectionEnd = start + code.length;
-        renderPreview();
+
+        input.focus();
+        // selectStart/End 默认为当前光标位置，'end' 表示插入后光标移动到新插入字符的末尾
+        input.setRangeText(code, input.selectionStart, input.selectionEnd, 'end');
+
+        // setRangeText 不会自动触发 input 事件，需要手动分发以更新预览
+        input.dispatchEvent(new Event('input'));
     }
 
-    /* ---- 预览渲染 ---- */
+    // 预览渲染
     function renderPreview() {
         const raw = document.getElementById("qzone-input").value || "";
         const html = raw.replace(/\[em](e\d+)\[\/em]/g, (m, c) => `<img class="emoji" src="img/${c}.gif" alt="${c}">`);
         document.getElementById("preview").innerHTML = html;
     }
 
-    /* ---- 输入框监听 ---- */
     document.getElementById("qzone-input").addEventListener("input", renderPreview);
 
-    /* ---- 启动 ---- */
     qzoneInit();
 });
