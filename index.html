@@ -78,14 +78,33 @@
                 <div class="input-group">
                     <label for="zalgo-input">输入文本：</label>
                     <textarea id="zalgo-input" rows="1" placeholder="输入任意文本..."></textarea>
-                    <label for="zalgo-level">故障程度：</label>
                     <div class="control-group">
-                        <input id="zalgo-level" type="range" min="0" max="100" value="10">
+                        <div class="control">
+                            <label>形状：</label>
+                            <select id="zalgo-shape">
+                                <option value="classic">随机</option>
+                                <option value="sine-wave">正弦波</option>
+                                <option value="slope-up">上坡</option>
+                                <option value="slope-down">下坡</option>
+                            </select>
+                        </div>
+                        <div class="control" style="margin-top: 12px;">
+                            <label for="zalgo-frequency">频率：</label>
+                            <input id="zalgo-frequency" type="range" min="0" max="100" value="100">
+                        </div>
+                        <div class="control" style="margin-top: 16px;">
+                            <label for="zalgo-amplitude">振幅：</label>
+                            <input id="zalgo-amplitude" type="range" min="0" max="100" value="10">
+                        </div>
                     </div>
-                    <label>故障方向：</label>
-                    <button id="zalgo-up" class="action-btn toggle-btn active">顶部</button>
-                    <button id="zalgo-mid" class="action-btn toggle-btn active">中部</button>
-                    <button id="zalgo-down" class="action-btn toggle-btn active">底部</button>
+                    <label>故障选项（多选）：</label>
+                    <div class="marks-buttons">
+                        <button id="zalgo-up" class="action-btn toggle-btn active">顶部</button>
+                        <button id="zalgo-mid" class="action-btn toggle-btn active">中部</button>
+                        <button id="zalgo-down" class="action-btn toggle-btn active">底部</button>
+                        <button id="zalgo-letters" class="action-btn toggle-btn">顶部小写字母</button>
+                        <button id="zalgo-bars" class="action-btn toggle-btn">横条</button>
+                    </div>
                 </div>
                 <div id="zalgo-output-container">
                 </div>

@@ -220,6 +220,7 @@ select {
 
 .control-group label {
     margin-bottom: 4px;
+    min-width: fit-content;
 }
 
 input[type="range"] {
