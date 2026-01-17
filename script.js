@@ -1599,4 +1599,99 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("qzone-input").addEventListener("input", renderPreview);
 
     qzoneInit();
+
+    // --- 颜表情 ---
+
+    // 1. 配置：定义分类的先后顺序
+    const KAOMOJI_ORDER = ["快乐", "猫", "特殊"];
+
+    let kaomojiData = {};
+
+    async function initKaomoji() {
+        try {
+            const response = await fetch('kaomoji_grouped.json');
+            kaomojiData = await response.json();
+
+            renderKaomojiTabs();
+
+            // 默认显示第一个分类
+            const sortedCats = getSortedCategories();
+            if (sortedCats.length > 0) switchKaomojiGroup(sortedCats[0]);
+        } catch (err) {
+            console.error("加载数据失败:", err);
+        }
+    }
+
+    // 获取排序后的分类名
+    function getSortedCategories() {
+        const keys = Object.keys(kaomojiData);
+        return keys.sort((a, b) => {
+            let indexA = KAOMOJI_ORDER.indexOf(a);
+            let indexB = KAOMOJI_ORDER.indexOf(b);
+            if (indexA === -1) indexA = 999;
+            if (indexB === -1) indexB = 999;
+            return indexA - indexB || a.localeCompare(b);
+        });
+    }
+
+    // 渲染分类 Tabs
+    function renderKaomojiTabs() {
+        const container = document.getElementById("kaomoji-tabs");
+        container.innerHTML = "";
+
+        getSortedCategories().forEach(cat => {
+            const t = document.createElement("div");
+            t.className = "tab";
+            t.dataset.group = cat;
+            // 显示翻译后的名字和数量
+            t.textContent = `${cat} (${kaomojiData[cat].length})`;
+            t.addEventListener("click", () => switchKaomojiGroup(cat));
+            container.appendChild(t);
+        });
+    }
+
+    // 切换显示内容
+    function switchKaomojiGroup(g) {
+        // 更新 Tab 高亮
+        document.querySelectorAll("#kaomoji-tabs .tab").forEach(t => {
+            t.classList.toggle("active", t.dataset.group === g);
+        });
+
+        const gallery = document.getElementById("kaomoji-gallery");
+        gallery.innerHTML = "";
+
+        // 渲染卡片
+        (kaomojiData[g] || []).forEach(emoji => {
+            const card = document.createElement("div");
+            card.className = "kaomoji-card";
+            card.textContent = emoji;
+            card.onclick = () => {
+                navigator.clipboard.writeText(emoji);
+                showToast(`已复制: ${emoji}`);
+            };
+            gallery.appendChild(card);
+        });
+    }
+
+    // 复制功能
+    function copyToClipboard(text) {
+        navigator.clipboard.writeText(text).then(() => {
+            showToast(`已复制: ${text}`);
+        }).catch(err => {
+            console.error('无法复制', err);
+        });
+    }
+
+    // 弹窗提示
+    function showToast(msg) {
+        const toast = document.getElementById("copy-toast");
+        toast.textContent = msg;
+        toast.classList.add("show");
+        setTimeout(() => {
+            toast.classList.remove("show");
+        }, 1500);
+    }
+
+    // 页面加载后执行
+    initKaomoji();
 });

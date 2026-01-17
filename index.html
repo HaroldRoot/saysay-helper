@@ -13,13 +13,15 @@
         <nav class="tab-nav">
             <div class="tab-row">
                 <button class="tab-link active" data-tab="font-replace">字体替换</button>
-                <button class="tab-link" data-tab="combining-marks">附加符号</button>
                 <button class="tab-link" data-tab="zalgo">故障文字</button>
+                <button class="tab-link" data-tab="qzone-emoji">空间隐藏表情</button>
+                <button class="tab-link" data-tab="kaomoji">颜表情</button>
             </div>
             <div class="tab-row">
+                <button class="tab-link" data-tab="combining-marks">附加符号</button>
                 <button class="tab-link" data-tab="martian">火星文</button>
                 <button class="tab-link" data-tab="dots">点阵文字</button>
-                <button class="tab-link" data-tab="qzone-emoji">空间隐藏表情</button>
+                <button class="tab-link" data-tab="about-us">关于本站</button>
             </div>
         </nav>
 
@@ -201,6 +203,12 @@
                 </div>
                 <div id="tabs" aria-hidden="false"></div>
                 <div id="gallery"></div>
+            </section>
+
+            <section id="kaomoji" class="tab-content">
+                <div id="kaomoji-tabs" class="tabs-container"></div>
+                <div id="kaomoji-gallery" class="kaomoji-grid"></div>
+                <div id="copy-toast" class="toast">复制成功！</div>
             </section>
         </main>
     </div>

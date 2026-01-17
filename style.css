@@ -574,3 +574,87 @@ input[type="range"] {
     white-space: pre-wrap;
     font-size: 1.5rem;
 }
+
+/* 分类容器：允许换行，限制高度并支持垂直滚动 */
+.tabs-container {
+    max-height: 150px;
+    overflow-y: auto;  /* 开启垂直滚动 */
+    padding: 12px;
+    display: flex;
+    flex-wrap: wrap; /* 核心：占满一行后自动换行 */
+    gap: 8px;
+    border-bottom: 1px solid #eee;
+    background: #fafafa;
+}
+
+/* 优化滚动条样式 */
+.tabs-container::-webkit-scrollbar {
+    width: 8px;
+}
+.tabs-container::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
+}
+
+/* 颜表情卡片展示区 */
+.kaomoji-grid {
+    padding: 15px;
+    display: flex;
+    flex-wrap: wrap; /* 核心：卡片自动流式排版 */
+    gap: 12px;
+    align-content: flex-start;
+}
+
+/* 颜表情卡片样式 */
+.kaomoji-card {
+    padding: 10px 15px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    line-height: 1.4;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-width: 60px;
+    /* 鲁棒性设计：处理长表情 */
+    word-break: break-word; 
+    max-width: 100%; 
+    flex: 0 1 auto; /* 根据内容宽度自动伸缩，但不强制拉伸 */
+}
+
+.kaomoji-card:hover {
+    background-color: #f0f7ff;
+    border-color: #409eff;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.kaomoji-card:active {
+    background-color: #e6f1fc;
+    transform: translateY(0);
+}
+
+/* 复制提示框 */
+.toast {
+    position: fixed;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.toast.show {
+    opacity: 1;
+}
