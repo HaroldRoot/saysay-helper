@@ -19,7 +19,7 @@
             </div>
             <div class="tab-row">
                 <button class="tab-link" data-tab="combining-marks">附加符号</button>
-                <button class="tab-link" data-tab="martian">火星文</button>
+                <button class="tab-link" data-tab="subculture">亚文化</button>
                 <button class="tab-link" data-tab="dots">点阵文字</button>
                 <button class="tab-link" data-tab="about-us">关于本站</button>
             </div>
@@ -152,12 +152,55 @@
                 </div>
             </section>
 
-            <section id="martian" class="tab-content">
-                <div class="input-group">
-                    <label for="martian-input">输入文本：</label>
-                    <textarea id="martian-input" rows="1" placeholder="输入任意文本..."></textarea>
+            <section id="subculture" class="tab-content">
+                <div class="subculture-module">
+                    <div class="module-header">
+                        <h2 class="sub-title">火星文</h2>
+                        <div class="tooltip-container">
+                            <div class="question-mark">?</div>
+                            <span class="tooltip-text">
+                                火星文，字面上解作火星人文字，但实际上是指一类网络语言。随着互联网的普及，年轻网民为求方便或彰显个性，开始大量使用同音字、音近字、特殊符号来表音的文字。由于这种文字与日常生活中使用的文字相比有明显的不同，文法也相当奇异，难以读懂，故称为火星文，取“地球人看不懂的文字”的讽刺效果。
+                            </span>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <textarea id="martian-input" rows="1" placeholder="输入文本进行实时转换..."></textarea>
+                    </div>
+                    <div class="button-group">
+                        <button id="jt2hx-btn" class="action-btn toggle-btn active">简体字 → 火星文</button>
+                        <button id="hx2jt-btn" class="action-btn toggle-btn">火星文 → 简体字</button>
+                    </div>
+                    <div id="martian-output-container" class="output-container"></div>
                 </div>
-                <div id="martian-output-container">
+
+                <hr class="divider">
+
+                <div class="subculture-module">
+                    <div class="module-header">
+                        <h2 class="sub-title">Leet</h2>
+                        <div class="tooltip-container">
+                            <div class="question-mark">?</div>
+                            <span class="tooltip-text">
+                                Leet（L337, 1337），又称黑客语，是指一种发源于西方国家的 BBS、在线游戏和黑客社群所使用的文字书写方式。通常是把拉丁字母转变成数字或是特殊符号，例如 E 写成
+                                3、A 写成 @ 等。
+                            </span>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <textarea id="leet-input" rows="1" placeholder="输入英文..."></textarea>
+                    </div>
+                    <div class="button-group">
+                        <button id="leet-btn" class="action-btn">生成 Leet 变体</button>
+                    </div>
+                    <div id="leet-output-container" class="output-container"></div>
+                </div>
+
+                <hr class="divider">
+
+                <div class="cute-symbols-section">
+                    <div id="cute-symbols-container">
+                        <p style="text-align:center; color:#999;">正在加载可爱符号...</p>
+                    </div>
                 </div>
             </section>
 
