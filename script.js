@@ -842,6 +842,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const zalgoDown = document.getElementById('zalgo-down');
     const zalgoLetters = document.getElementById('zalgo-letters'); // 新增
     const zalgoBars = document.getElementById('zalgo-bars');       // 新增
+    const zalgoUpleft = document.getElementById('zalgo-upleft');
+    const zalgoUpright = document.getElementById('zalgo-upright');
 
     // Zalgo 字符集 
     const zalgoChars = {
@@ -873,6 +875,12 @@ document.addEventListener("DOMContentLoaded", () => {
         bars: [
             '\u0304', '\u0305', '\u0320', '\u0331', '\u0332', '\u0333', '\u033f', '\u035e',
             '\u035f'
+        ],
+        upleft: [
+            '\u0e4e'
+        ],
+        upright: [
+            '\u0e49'
         ]
     };
 
@@ -890,6 +898,8 @@ document.addEventListener("DOMContentLoaded", () => {
         if (zalgoDown.classList.contains('active')) activeCharSets.push(zalgoChars.down);
         if (zalgoLetters.classList.contains('active')) activeCharSets.push(zalgoChars.letters);
         if (zalgoBars.classList.contains('active')) activeCharSets.push(zalgoChars.bars);
+        if (zalgoUpleft.classList.contains('active')) activeCharSets.push(zalgoChars.upleft);
+        if (zalgoUpright.classList.contains('active')) activeCharSets.push(zalgoChars.upright);
 
         // 如果没有任何选项被选中，直接返回原文本（带 ZWSP）
         if (activeCharSets.length === 0) return ZWSP + text;
@@ -979,8 +989,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // 监听所有 Toggle 按钮 (上、中、下、字母、横条)
-    const toggleButtons = [zalgoUp, zalgoMid, zalgoDown, zalgoLetters, zalgoBars];
+    // 监听所有 Toggle 按钮
+    const toggleButtons = [zalgoUp, zalgoMid, zalgoDown, zalgoLetters, zalgoBars, zalgoUpleft, zalgoUpright];
 
     toggleButtons.forEach(btn => {
         btn.addEventListener("click", () => {
