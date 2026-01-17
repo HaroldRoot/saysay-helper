@@ -579,10 +579,10 @@ input[type="range"] {
 .tabs-container {
     max-height: 150px;
     overflow-y: auto;  /* 开启垂直滚动 */
-    padding: 12px;
+    padding: 6px;
     display: flex;
     flex-wrap: wrap; /* 核心：占满一行后自动换行 */
-    gap: 8px;
+    gap: 5px;
     border-bottom: 1px solid #eee;
     background: #fafafa;
 }
@@ -598,10 +598,10 @@ input[type="range"] {
 
 /* 颜表情卡片展示区 */
 .kaomoji-grid {
-    padding: 15px;
+    padding: 12px;
     display: flex;
     flex-wrap: wrap; /* 核心：卡片自动流式排版 */
-    gap: 12px;
+    gap: 8px;
     align-content: flex-start;
 }
 
@@ -615,15 +615,16 @@ input[type="range"] {
     line-height: 1.4;
     cursor: pointer;
     transition: all 0.2s ease;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    text-align: center;
+    text-align: left;
     min-width: 60px;
     /* 鲁棒性设计：处理长表情 */
     word-break: break-word; 
     max-width: 100%; 
     flex: 0 1 auto; /* 根据内容宽度自动伸缩，但不强制拉伸 */
+    white-space: pre-wrap; /* 保留空格与换行 */
 }
 
 .kaomoji-card:hover {
