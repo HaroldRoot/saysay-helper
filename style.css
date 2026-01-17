@@ -725,7 +725,7 @@ input[type="range"] {
 
 .tooltip-text {
     visibility: hidden;
-    width: 240px;
+    width: 180px;
     background-color: #333;
     color: #fff;
     border-radius: 6px;
