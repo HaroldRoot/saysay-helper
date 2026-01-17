@@ -417,6 +417,15 @@ input[type="range"] {
     gap: 16px;
 }
 
+.label-and-tip {
+    display: grid;
+    grid-template-columns: auto 1fr;
+}
+
+.label-and-tip .question-mark {
+    margin-top: 2px;
+}
+
 .control {
     display: flex;
     align-items: center;
@@ -602,22 +611,22 @@ input[type="range"] {
 
 /* 颜表情卡片展示区 */
 .kaomoji-grid {
-    padding: 12px;
+    padding-top: 12px;
     display: flex;
     flex-wrap: wrap;
     /* 核心：卡片自动流式排版 */
-    gap: 8px;
+    gap: 10px 8px;
     align-content: flex-start;
 }
 
 /* 颜表情卡片样式 */
 .kaomoji-card {
-    padding: 10px 15px;
+    padding: 8px 12px;
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 8px;
-    font-size: 1rem;
-    line-height: 1.4;
+    font-size: 0.9rem;
+    line-height: 1;
     cursor: pointer;
     transition: all 0.2s ease;
     display: inline-flex;
@@ -717,27 +726,27 @@ input[type="range"] {
 .tooltip-text {
     visibility: hidden;
     width: 240px;
-    /* 稍微调窄一点适配小屏 */
     background-color: #333;
     color: #fff;
     border-radius: 6px;
     padding: 10px;
     position: absolute;
-    z-index: 100;
-    top: 150%;
-    left: 500%;
-    transform: translateX(-50%);
-    /* 水平居中 */
-    opacity: 0;
-    transition: opacity 0.3s;
+    z-index: 999; /* 提高层级 */
+    
+    top: 30px; 
+    left: 120px;
+    transform: translateX(-50%); 
     font-size: 12px;
     line-height: 1.5;
-    pointer-events: none;
-    /* 防止遮挡点击 */
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none; 
+    word-wrap: break-word; /* 防止长文本撑破容器 */
 }
 
 /* 移动端点击显示（利用 hover 在 touch 上的特性） */
-.tooltip-container:hover .tooltip-text {
+.tooltip-container:hover .tooltip-text,
+.tooltip-container:active .tooltip-text { /* 增加 active 适配移动端点击 */
     visibility: visible;
     opacity: 1;
 }
@@ -754,7 +763,7 @@ input[type="range"] {
     text-transform: capitalize;
 }
 
-/* 5. 可爱符号专属卡片样式 (不使用 kaomoji-card) */
+/* 可爱符号专属卡片样式 */
 .symbol-grid {
     display: flex;
     flex-wrap: wrap;
@@ -764,7 +773,7 @@ input[type="range"] {
 }
 
 .symbol-card {
-    padding: 4px 8px;
+    padding: 4px 12px;
     background-color: #fffafb;
     /* 极淡的粉色背景 */
     border: 1px solid #ffe0e5;
@@ -772,11 +781,16 @@ input[type="range"] {
     font-size: 1.1rem;
     cursor: pointer;
     transition: all 0.3s ease;
+
     white-space: pre-wrap;
     text-align: left;
     box-shadow: 0 2px 4px rgba(241, 106, 106, 0.05);
     display: inline-flex;
     align-items: center;
+    max-width: 100%;
+    word-break: break-all;
+    overflow-wrap: anywhere;
+    box-sizing: border-box;
 }
 
 .symbol-card:hover {
@@ -828,6 +842,7 @@ input[type="range"] {
     color: #3182ce;
     word-break: break-all;
     margin: 10px 0;
+    font-size: 0.9rem;
 }
 
 /* 工具项样式 */
@@ -883,4 +898,9 @@ code {
     color: #3182ce;
     word-break: break-all;
     margin: 10px 0;
+}
+
+.dots-result-card {
+    line-height: 1;
+    letter-spacing: -0.2em;
 }

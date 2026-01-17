@@ -70,7 +70,15 @@
                         <button id="marks-lowercase-btn" class="action-btn toggle-btn">全小写</button>
                     </div>
                     <div class="input-group">
-                        <label>选择附加符号（可多选）：</label>
+                        <div class="label-and-tip">
+                            <label>选择组合符号（可多选）：</label>
+                            <div class="tooltip-container">
+                                <div class="question-mark">?</div>
+                                <span class="tooltip-text">
+                                    对于组合符号的实现，不同字体的显示效果可能有较大差异。不能保证在不同设备上查看是一样的。
+                                </span>
+                            </div>
+                        </div>
                         <div id="marks-buttons" class="marks-buttons"></div>
                     </div>
                     <div class="input-group">
@@ -129,15 +137,23 @@
                             </select>
                         </div>
                         <div class="control" style="margin-top: 12px;">
-                            <label for="zalgo-frequency">频率：</label>
+                            <label for="zalgo-frequency">频率（只对正弦波有效）：</label>
                             <input id="zalgo-frequency" type="range" min="0" max="100" value="100">
                         </div>
                         <div class="control" style="margin-top: 16px;">
-                            <label for="zalgo-amplitude">振幅：</label>
+                            <label for="zalgo-amplitude">幅度：</label>
                             <input id="zalgo-amplitude" type="range" min="0" max="100" value="10">
                         </div>
                     </div>
-                    <label>故障选项（多选）：</label>
+                    <div class="label-and-tip">
+                        <label>故障选项（多选）：</label>
+                        <div class="tooltip-container">
+                            <div class="question-mark">?</div>
+                            <span class="tooltip-text">
+                                Zalgo 文本，也称为诅咒文本或故障文本，是一种经过大量组合字符（用于在字母上方或下方添加变音符号的 Unicode 符号）进行修改的数字文本，以显得令人恐惧或出现故障。
+                            </span>
+                        </div>
+                    </div>
                     <div class="marks-buttons">
                         <button id="zalgo-up" class="action-btn toggle-btn active">顶部</button>
                         <button id="zalgo-mid" class="action-btn toggle-btn active">中部</button>
@@ -242,7 +258,8 @@
 
             <section id="qzone-emoji" class="tab-content">
                 <div id="top-bar">
-                    <textarea id="qzone-input" placeholder="在此输入文本，支持 [em]e123[/em] 代码，下面会显示预览"></textarea>
+                    <textarea id="qzone-input"
+                        placeholder="在此输入文本，支持 [em]e123[/em] 代码，下面会显示预览。图片资源加载较慢是正常的，请耐心等待..."></textarea>
                     <div id="preview"></div>
                 </div>
                 <div id="tabs" aria-hidden="false"></div>
@@ -256,7 +273,7 @@
 
             <section id="about-us" class="tab-content">
                 <div class="share-header">
-                    <h3>+*:ꔫ:*﹤你喜欢吗﹥*:ꔫ:*+ﾟ<br>＊*•̩̩͙✩•̩̩͙*˚将链接分享给朋友吧˚*•̩̩͙✩•̩̩͙*˚＊<br>ദ്ദി(˵ •̀ ᴗ - ˵ ) ✧</h3>
+                    <h3>ﾟ+*:ꔫ:*﹤你喜欢吗﹥*:ꔫ:*+ﾟ<br>☆*:･ﾟ✧将链接分享给朋友吧✧ﾟ･:*☆<br>ദ്ദി(˵ •̀ ᴗ - ˵ ) ✧</h3>
                 </div>
 
                 <div class="link-card main-link">
