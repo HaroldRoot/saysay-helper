@@ -150,30 +150,6 @@ document.addEventListener("DOMContentLoaded", () => {
         updateFontResults();
     });
 
-    // --- 复制到剪贴板 ---
-    const toast = document.getElementById("toast");
-    let toastTimer;
-
-    function copyToClipboard(text) {
-        navigator.clipboard.writeText(text).then(() => {
-            // 显示 toast
-            toast.classList.add("show");
-
-            // 清除上一个计时器
-            if (toastTimer) {
-                clearTimeout(toastTimer);
-            }
-
-            // 2 秒后隐藏
-            toastTimer = setTimeout(() => {
-                toast.classList.remove("show");
-            }, 2000);
-        }).catch(err => {
-            console.error("复制失败: ", err);
-            alert("复制失败，请手动复制。");
-        });
-    }
-
     // --- 英文字体替换 ---
     const fontMaps = {
         sansBold: {
@@ -1775,7 +1751,12 @@ document.addEventListener("DOMContentLoaded", () => {
     // 复制功能
     function copyToClipboard(text) {
         navigator.clipboard.writeText(text).then(() => {
-            showToast(`已复制: ${text}`);
+            if (text.length < 30) {
+                showToast(`已复制: ${text}`);
+            }
+            else {
+                showToast("复制成功");
+            }
         }).catch(err => {
             console.error('无法复制', err);
         });
