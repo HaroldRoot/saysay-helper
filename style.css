@@ -30,7 +30,7 @@ body {
 }
 
 main {
-    padding: 15px;
+    padding: 10px 15px;
 }
 
 header {
@@ -527,4 +527,50 @@ input[type="range"] {
         min-width: 8px;
         font-size: 1rem;
     }
+}
+
+.marks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(32px, 1fr));
+    gap: 4px;
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    padding: 4px;
+    margin-top: 10px;
+    border-radius: 4px;
+}
+
+.adv-mark-item {
+    padding: 4px 4px;
+    text-align: center;
+    border: 1px solid #eee;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 1.5rem;
+}
+
+.adv-mark-item:hover {
+    background: #f0f0f0;
+}
+
+.sequence-display-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.sequence-preview-box {
+    width: 100%;
+    min-height: 40px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    word-break: break-all; /* 极其重要：确保长序列自动换行 */
+    white-space: pre-wrap;
+    font-size: 1.5rem;
 }

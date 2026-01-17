@@ -53,24 +53,62 @@
             </section>
 
             <section id="combining-marks" class="tab-content">
-                <div class="input-group">
-                    <label for="marks-input">输入文本：</label>
-                    <textarea id="marks-input" rows="1" placeholder="输入任意文本..."></textarea>
+                <nav class="sub-tab-nav">
+                    <button class="sub-tab-link active" data-subtab="marks-preset">基础</button>
+                    <button class="sub-tab-link" data-subtab="marks-advanced">高级</button>
+                </nav>
+                <div id="marks-preset" class="sub-tab-content active">
+                    <div class="input-group">
+                        <label for="marks-input">输入文本：</label>
+                        <textarea id="marks-input" rows="1" placeholder="输入任意文本..."></textarea>
+                    </div>
+                    <div class="button-group">
+                        <button id="marks-clear-btn" class="action-btn">清空</button>
+                        <button id="marks-uppercase-btn" class="action-btn toggle-btn">全大写（推荐）</button>
+                        <button id="marks-lowercase-btn" class="action-btn toggle-btn">全小写</button>
+                    </div>
+                    <div class="input-group">
+                        <label>选择附加符号（可多选）：</label>
+                        <div id="marks-buttons" class="marks-buttons"></div>
+                    </div>
+                    <div class="input-group">
+                        <label>处理方式：</label>
+                        <div id="process-buttons" class="marks-buttons"></div>
+                    </div>
+                    <div id="marks-output-container">
+                    </div>
                 </div>
-                <div class="button-group">
-                    <button id="marks-clear-btn" class="action-btn">清空</button>
-                    <button id="marks-uppercase-btn" class="action-btn toggle-btn">全大写（推荐）</button>
-                    <button id="marks-lowercase-btn" class="action-btn toggle-btn">全小写</button>
-                </div>
-                <div class="input-group">
-                    <label>选择附加符号（可多选）：</label>
-                    <div id="marks-buttons" class="marks-buttons"></div>
-                </div>
-                <div class="input-group">
-                    <label>处理方式：</label>
-                    <div id="process-buttons" class="marks-buttons"></div>
-                </div>
-                <div id="marks-output-container">
+                <div id="marks-advanced" class="sub-tab-content">
+                    <div class="input-group">
+                        <label for="marks-adv-input">输入文本：</label>
+                        <textarea id="marks-adv-input" rows="1" placeholder="输入任意文本..."></textarea>
+                    </div>
+                    <div class="button-group">
+                        <button id="adv-clear-input-btn" class="action-btn">清空输入</button>
+                        <button id="adv-uppercase-btn" class="action-btn toggle-btn">全大写</button>
+                        <button id="adv-lowercase-btn" class="action-btn toggle-btn">全小写</button>
+                    </div>
+                    <div class="input-group">
+                        <label>处理方式：</label>
+                        <div id="adv-process-buttons" class="marks-buttons">
+                        </div>
+                    </div>
+                    <div id="marks-adv-output-container"></div>
+                    <div class="sequence-builder input-group">
+                        <label style="margin-top: 8px;">当前组合符号序列：</label>
+                        <div class="sequence-display-wrapper">
+                            <div id="adv-sequence-preview" class="sequence-preview-box">无序列</div>
+                        </div>
+                        <div class="button-group">
+                            <button id="adv-pop-seq" class="action-btn">删除末尾</button>
+                            <button id="adv-reverse-seq" class="action-btn">反转序列</button>
+                            <button id="adv-clear-seq" class="action-btn btn-danger">清空序列</button>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>选择符号添加到序列：</label>
+                        <div id="adv-marks-grid" class="marks-grid"></div>
+                    </div>
                 </div>
             </section>
 

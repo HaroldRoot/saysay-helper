@@ -52,25 +52,39 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // --- 字体替换子分页（内部 tab） ---
-    const subTabNav = document.querySelector(".sub-tab-nav");
-    if (subTabNav) {
-        const subTabLinks = document.querySelectorAll(".sub-tab-link");
-        const subTabContents = document.querySelectorAll(".sub-tab-content");
+    // 使用 querySelectorAll 获取所有子导航栏
+    const allSubTabNavs = document.querySelectorAll(".sub-tab-nav");
 
-        subTabNav.addEventListener("click", (e) => {
+    allSubTabNavs.forEach(nav => {
+        nav.addEventListener("click", (e) => {
             const clicked = e.target.closest(".sub-tab-link");
             if (!clicked) return;
 
-            const id = clicked.dataset.subtab;
+            const subTabId = clicked.dataset.subtab;
+            // 获取当前主标签页容器（如 #font-replace 或 #combining-marks）
+            const parentSection = nav.closest('.tab-content');
 
-            // 移除 active
-            subTabLinks.forEach(btn => btn.classList.remove("active"));
-            subTabContents.forEach(c => c.classList.remove("active"));
+            // 1. 仅移除当前容器下的子标签激活状态（局部清理）
+            parentSection.querySelectorAll(".sub-tab-link").forEach(btn => {
+                btn.classList.remove("active");
+            });
+            parentSection.querySelectorAll(".sub-tab-content").forEach(content => {
+                content.classList.remove("active");
+            });
 
+            // 2. 激活当前点击的标签和对应内容
             clicked.classList.add("active");
-            document.getElementById(id).classList.add("active");
+            const targetContent = document.getElementById(subTabId);
+            if (targetContent) {
+                targetContent.classList.add("active");
+            }
+
+            // 3. 特殊逻辑：如果是高级页面，触发更新
+            if (subTabId === 'marks-advanced' && typeof updateAdvancedUI === 'function') {
+                updateAdvancedUI();
+            }
         });
-    }
+    });
 
     // --- 分割字素簇的函数 ---
     function splitGraphemes(str) {
@@ -666,7 +680,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     loadNumbers();
 
-    // --- 组合附加符号 ---
+    // 组合附加符号
     const combiningMarks = [
         { name: "Combining Overline", char: "\u0305" },
         { name: "Combining Low Line", char: "\u0332" },
@@ -685,10 +699,10 @@ document.addEventListener("DOMContentLoaded", () => {
         { name: "Combining Diaeresis Below", char: "\u0324" }
     ];
 
-    // --- 处理方式选项 ---
+    // 处理方式选项
     const processingModes = [
-        { id: "add-space", label: "开头加个零宽空格" },
-        { id: "skip-space", label: "跳过所有空格" },
+        { id: "add-prefix-zwsp", label: "开头加个零宽空格" },
+        { id: "skip-space", label: "跳过所有普通空格" },
         { id: "skip-punct", label: "跳过标点符号" }
     ];
 
@@ -701,12 +715,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const marksUppercaseBtn = document.getElementById('marks-uppercase-btn');
     const marksLowercaseBtn = document.getElementById('marks-lowercase-btn');
 
-    // --- 状态 ---
+    // 状态
     let selectedMarks = new Set();
     let caseMode = null; // 'upper' | 'lower' | null
     let activeProcess = new Set();
 
-    // --- 生成符号按钮 ---
+    // 生成符号按钮
     combiningMarks.forEach(mark => {
         const btn = document.createElement('button');
         btn.className = 'mark-btn action-btn';
@@ -727,7 +741,7 @@ document.addEventListener("DOMContentLoaded", () => {
         marksButtonsContainer.appendChild(btn);
     });
 
-    // --- 创建清空符号按钮 ---
+    // 创建清空符号按钮
     const clearMarksBtn = document.createElement('button');
     clearMarksBtn.className = 'action-btn';
     clearMarksBtn.textContent = '清空所有选择';
@@ -743,7 +757,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // 将按钮添加到符号按钮容器的末尾
     marksButtonsContainer.appendChild(clearMarksBtn);
 
-    // --- 生成处理方式按钮 ---
+    // 生成处理方式按钮
     processingModes.forEach(mode => {
         const btn = document.createElement('button');
         btn.className = 'action-btn process-btn';
@@ -764,13 +778,13 @@ document.addEventListener("DOMContentLoaded", () => {
         processButtonsContainer.appendChild(btn);
     });
 
-    // --- 清空按钮 ---
+    // 清空按钮
     marksClearBtn.addEventListener('click', () => {
         marksInput.value = '';
         updateMarksOutput();
     });
 
-    // --- 大小写切换按钮 ---
+    // 大小写切换按钮
     function toggleCaseMode(mode, btn) {
         if (caseMode === mode) {
             caseMode = null;
@@ -787,7 +801,7 @@ document.addEventListener("DOMContentLoaded", () => {
     marksUppercaseBtn.addEventListener('click', () => toggleCaseMode('upper', marksUppercaseBtn));
     marksLowercaseBtn.addEventListener('click', () => toggleCaseMode('lower', marksLowercaseBtn));
 
-    // --- 输出更新 ---
+    // 输出更新
     function updateMarksOutput() {
         let text = marksInput.value;
         marksOutputContainer.innerHTML = '';
@@ -795,7 +809,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!text) return;
 
         // 处理方式：开头加空格
-        if (activeProcess.has('add-space')) {
+        if (activeProcess.has('add-prefix-zwsp')) {
             text = ZWSP + text;
         }
 
@@ -827,6 +841,161 @@ document.addEventListener("DOMContentLoaded", () => {
     // 初始触发一次
     updateMarksOutput();
 
+    // --- 高级组合符号逻辑 ---
+    let allCombiningMarks = {};
+    let currentSequence = [];
+
+    const advInput = document.getElementById('marks-adv-input');
+    const advSequencePreview = document.getElementById('adv-sequence-preview');
+    const advMarksGrid = document.getElementById('adv-marks-grid');
+    const advOutputContainer = document.getElementById('marks-adv-output-container');
+
+    // --- 高级组合符号状态 ---
+    let advCaseMode = null; // 'upper' | 'lower' | null
+    let advActiveProcess = new Set();
+
+    const advProcessButtonsContainer = document.getElementById('adv-process-buttons');
+    const advUppercaseBtn = document.getElementById('adv-uppercase-btn');
+    const advLowercaseBtn = document.getElementById('adv-lowercase-btn');
+
+    // 初始化处理按钮 (与预设页面共用 processingModes 配置)
+    processingModes.forEach(mode => {
+        const btn = document.createElement('button');
+        btn.className = 'action-btn process-btn';
+        btn.textContent = mode.label;
+
+        btn.addEventListener('click', () => {
+            if (advActiveProcess.has(mode.id)) {
+                advActiveProcess.delete(mode.id);
+                btn.classList.remove('active');
+            } else {
+                advActiveProcess.add(mode.id);
+                btn.classList.add('active');
+            }
+            updateAdvancedUI();
+        });
+        advProcessButtonsContainer.appendChild(btn);
+    });
+
+    // 大小写切换逻辑
+    function toggleAdvCaseMode(mode, btn) {
+        if (advCaseMode === mode) {
+            advCaseMode = null;
+            btn.classList.remove('active');
+        } else {
+            advCaseMode = mode;
+            advUppercaseBtn.classList.remove('active');
+            advLowercaseBtn.classList.remove('active');
+            btn.classList.add('active');
+        }
+        updateAdvancedUI();
+    }
+
+    advUppercaseBtn.addEventListener('click', () => toggleAdvCaseMode('upper', advUppercaseBtn));
+    advLowercaseBtn.addEventListener('click', () => toggleAdvCaseMode('lower', advLowercaseBtn));
+
+    // 反转序列
+    document.getElementById('adv-reverse-seq').addEventListener('click', () => {
+        currentSequence.reverse();
+        updateAdvancedUI();
+    });
+
+    // 清空输入
+    document.getElementById('adv-clear-input-btn').addEventListener('click', () => {
+        advInput.value = '';
+        if (typeof autoResize === 'function') autoResize(advInput);
+        updateAdvancedUI();
+    });
+
+    // 加载 JSON 数据
+    async function loadCombiningMarks() {
+        try {
+            const response = await fetch('combining_diacritical_marks.json');
+            allCombiningMarks = await response.json();
+            renderAdvancedGrid(); // 初始化渲染，无需参数
+        } catch (error) {
+            console.error("无法加载符号库:", error);
+            advMarksGrid.innerHTML = "加载符号库失败，请检查文件路径。";
+        }
+    }
+
+    // 渲染高级符号选择网格
+    function renderAdvancedGrid() {
+        advMarksGrid.innerHTML = '';
+
+        Object.values(allCombiningMarks).forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'adv-mark-item';
+            div.title = item.Name;
+            // 这里的展示依然是 A + 单个符号
+            div.textContent = 'A' + item.Character;
+
+            div.addEventListener('click', () => {
+                currentSequence.push(item.Character);
+                updateAdvancedUI();
+            });
+            advMarksGrid.appendChild(div);
+        });
+    }
+
+    // 更新 UI 与输出
+    function updateAdvancedUI() {
+        // 1. 更新预览区域 (模拟输入框的 autoResize 效果)
+        const previewStr = currentSequence.map(char => 'A' + char).join('');
+        advSequencePreview.textContent = previewStr || '无序列';
+
+        // 2. 处理输出文本
+        let text = advInput.value;
+        advOutputContainer.innerHTML = '';
+
+        if (!text) return;
+
+        // 开头加个零宽空格
+        if (advActiveProcess.has('add-prefix-zwsp')) {
+            text = ZWSP + text;
+        }
+
+        const sequenceStr = currentSequence.join('');
+
+        // 过滤规则
+        const isSkippable = ch =>
+            (advActiveProcess.has('skip-space') && /\s/.test(ch)) ||
+            (advActiveProcess.has('skip-punct') && /\p{P}/u.test(ch));
+
+        // 应用序列
+        let finalText = splitGraphemes(text)
+            .map(ch => isSkippable(ch) ? ch : ch + ZWSP + sequenceStr)
+            .join('');
+
+        // 处理大小写
+        if (advCaseMode === 'upper') finalText = finalText.toUpperCase();
+        else if (advCaseMode === 'lower') finalText = finalText.toLowerCase();
+
+        // 显示结果
+        if (finalText) {
+            const card = createResultCard(finalText);
+            advOutputContainer.appendChild(card);
+        }
+    }
+
+    // 事件监听
+    document.getElementById('adv-clear-seq').addEventListener('click', () => {
+        currentSequence = [];
+        updateAdvancedUI();
+    });
+
+    document.getElementById('adv-pop-seq').addEventListener('click', () => {
+        currentSequence.pop();
+        updateAdvancedUI();
+    });
+
+    advInput.addEventListener('input', () => {
+        if (typeof autoResize === 'function') autoResize(advInput);
+        updateAdvancedUI();
+    });
+
+    // 初始化加载
+    loadCombiningMarks();
 
     // --- 故障文字 (Zalgo) ---
     // 获取 DOM 元素

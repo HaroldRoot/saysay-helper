@@ -558,5 +558,20 @@
         "Codepoint": "U+036F",
         "Character": "ͯ",
         "Name": "Combining Latin Small Letter X"
+    },
+    "1161": {
+        "Codepoint": "U+0489",
+        "Character": "҉",
+        "Name": "Combining Cyrillic Millions Sign"
+    },
+    "3657": {
+        "Codepoint": "U+0E49",
+        "Character": "้",
+        "Name": "Thai Character Mai Tho"
+    },
+    "3662": {
+        "Codepoint": "U+0E4E",
+        "Character": "๎",
+        "Name": "Thai Character Yamakkan"
     }
 }
