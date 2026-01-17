@@ -724,7 +724,7 @@ input[type="range"] {
     padding: 10px;
     position: absolute;
     z-index: 100;
-    top: 150%; 
+    top: 150%;
     left: 500%;
     transform: translateX(-50%);
     /* 水平居中 */
@@ -749,7 +749,8 @@ input[type="range"] {
     padding: 6px;
     margin: 12px auto 12px;
     width: fit-content;
-    border-bottom: 2px solid #dfd4d4; /* 仅保留下边框 */
+    border-bottom: 2px solid #dfd4d4;
+    /* 仅保留下边框 */
     text-transform: capitalize;
 }
 
@@ -758,12 +759,14 @@ input[type="range"] {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    justify-content: center; /* 卡片居中 */
+    justify-content: center;
+    /* 卡片居中 */
 }
 
 .symbol-card {
     padding: 4px 8px;
-    background-color: #fffafb; /* 极淡的粉色背景 */
+    background-color: #fffafb;
+    /* 极淡的粉色背景 */
     border: 1px solid #ffe0e5;
     border-radius: 12px;
     font-size: 1.1rem;
@@ -786,4 +789,98 @@ input[type="range"] {
 .symbol-card:active {
     background-color: #de5959;
     transform: translateY(0);
+}
+
+.share-header h3 {
+    color: #f16a6a;
+    text-align: center;
+    font-size: 20px;
+    padding: 6px;
+    margin: 2px auto;
+    width: fit-content;
+}
+
+.link-card {
+    background: #f8f9fa;
+    border: 1px dashed #cbd5e0;
+    padding: 4px;
+    border-radius: 12px;
+    margin: 4px auto;
+    position: relative;
+    text-align: center;
+}
+
+.link-card:hover {
+    background-color: #f0f7ff;
+    border-color: #409eff;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.link-card:active {
+    background-color: #e6f1fc;
+    transform: translateY(0);
+}
+
+.url-display {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    color: #3182ce;
+    word-break: break-all;
+    margin: 10px 0;
+}
+
+/* 工具项样式 */
+.tool-item {
+    background: #fffdf5;
+    border-left: 4px solid #f6ad55;
+    padding: 15px;
+    border-radius: 4px;
+}
+
+.tool-item h5 {
+    margin: 0 0 8px 0;
+    color: #d69e2e;
+}
+
+.tool-item p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+.tool-link {
+    font-size: 0.85rem;
+    color: #4a5568;
+    text-decoration: none;
+    border-bottom: 1px solid #cbd5e0;
+}
+
+.tool-link:hover {
+    color: #2d3748;
+    border-color: #2d3748;
+}
+
+code {
+    background: #edf2f7;
+    padding: 2px 5px;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
+.other-tools h4 {
+    margin-top: 20px;
+    margin-bottom: 12px;
+}
+
+.tool-item h5 {
+    font-size: 1.2rem;
+}
+
+.tool-item code {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    color: #3182ce;
+    word-break: break-all;
+    margin: 10px 0;
 }

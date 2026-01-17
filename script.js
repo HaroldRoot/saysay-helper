@@ -658,21 +658,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 组合附加符号
     const combiningMarks = [
+        { name: "Combining Cyrillic Millions Sign", char: "\u0489" },
         { name: "Combining Overline", char: "\u0305" },
+        { name: "Combining Double Macron Below", char: "\u035F" },
         { name: "Combining Low Line", char: "\u0332" },
         { name: "Combining Double Low Line", char: "\u0333" },
+        { name: "Combining Equals Sign Below", char: "\u0347" },
+        { name: "Combining Long Stroke Overlay", char: "\u0336" },
+        { name: "Combining Short Solidus Overlay", char: "\u0337" },
         { name: "Combining Tilde", char: "\u0303" },
         { name: "Combining Tilde Below", char: "\u0330" },
         { name: "Combining Dot Above", char: "\u0307" },
         { name: "Combining Dot Below", char: "\u0323" },
-        { name: "Combining Short Solidus Overlay", char: "\u0337" },
-        { name: "Combining X Above", char: "\u033D" },
+        { name: "Combining Diaeresis Below", char: "\u0324" },
         { name: "Combining Upwards Arrow Below", char: "\u034E" },
-        { name: "Combining Cyrillic Millions Sign", char: "\u0489" },
-        { name: "Combining Long Stroke Overlay", char: "\u0336" },
-        { name: "Combining Double Macron Below", char: "\u035F" },
-        { name: "Combining Equals Sign Below", char: "\u0347" },
-        { name: "Combining Diaeresis Below", char: "\u0324" }
+        { name: "Combining X Above", char: "\u033D" },
     ];
 
     // 处理方式选项
@@ -702,6 +702,7 @@ document.addEventListener("DOMContentLoaded", () => {
         btn.className = 'mark-btn action-btn';
         btn.textContent = `A${ZWSP}${mark.char}`;
         btn.dataset.char = mark.char;
+        btn.style = 'font-size: 1.5rem;';
 
         btn.addEventListener('click', () => {
             if (selectedMarks.has(mark.char)) {
@@ -808,6 +809,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // 显示结果
         const card = createResultCard(finalText);
+        card.style = "font-size: 1.5rem;";
         marksOutputContainer.appendChild(card);
     }
 
@@ -1774,4 +1776,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 页面加载后执行
     initKaomoji();
+
+    const url = document.getElementById("url-display");
+    
+    url.addEventListener('click', () => {
+        copyToClipboard(url.textContent);
+    });
 });
