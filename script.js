@@ -1450,7 +1450,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const text = inputChar.value; // 不做 trim，保留用户可能想要的中间空格逻辑，但在生成时会跳过
         let size = parseInt(dotSizeInput.value, 10);
         const font = fontSelect.value;
-        const threshold = parseInt(dotThresholdInput.value, 10);
+        const threshold = 254 - parseInt(dotThresholdInput.value, 10);
 
         // 修正 size
         if (isNaN(size) || size < 16) size = 16;
