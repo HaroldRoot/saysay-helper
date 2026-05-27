@@ -48,14 +48,14 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 24px;
+    min-width: 28px;
     height: 24px;
+    padding: 0 0.35rem;
     background: var(--accent);
     color: var(--on-accent);
     border-radius: var(--radius-xs);
-    font-family: var(--font-serif);
-    font-style: italic;
-    font-size: 0.85rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
     font-weight: 600;
     line-height: 1;
 }
@@ -98,9 +98,9 @@
         font-size: var(--fs-lg);
     }
     .topbar__logo {
-        width: 28px;
+        min-width: 32px;
         height: 28px;
-        font-size: 0.95rem;
+        font-size: 0.9rem;
     }
 }
 

@@ -29,7 +29,7 @@
     /* Typography */
     --font-sans: "Geist", "Plus Jakarta Sans", "PingFang SC", "Source Han Sans SC", "Noto Sans SC", system-ui, sans-serif;
     --font-serif: "Fraunces", "Source Han Serif SC", "Noto Serif SC", "Songti SC", Georgia, serif;
-    --font-mono: "Geist Mono", "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+    --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
     --fs-xs: 0.75rem;
     --fs-sm: 0.85rem;
