@@ -1,7 +1,8 @@
 import { copyToClipboard } from "../shared/clipboard.js";
 
-function categoryToId(name) {
-    return "cute-cat-" + name.replace(/\s+/g, "-").replace(/[^\p{L}\p{N}\-]/gu, "");
+function shortLabel(name) {
+    const m = name.match(/[\p{Script=Han}]+/u);
+    return m ? m[0] : name.split(/\s+/)[0] || name;
 }
 
 export async function initCuteSymbols() {
@@ -14,6 +15,9 @@ export async function initCuteSymbols() {
         const data = await response.json();
         container.innerHTML = "";
 
+        const categories = Object.keys(data);
+        if (categories.length === 0) return;
+
         const nav = document.createElement("div");
         nav.id = "cute-symbols-nav";
         nav.className = "tabs-container";
@@ -21,36 +25,40 @@ export async function initCuteSymbols() {
         nav.setAttribute("aria-label", "可爱符号分组");
         container.appendChild(nav);
 
-        for (const [category, symbols] of Object.entries(data)) {
-            const id = categoryToId(category);
+        const grid = document.createElement("div");
+        grid.className = "symbol-grid";
+        grid.id = "cute-symbols-grid";
+        container.appendChild(grid);
 
-            const chip = document.createElement("button");
-            chip.type = "button";
-            chip.className = "tab";
-            chip.dataset.target = id;
-            chip.textContent = `${category} (${symbols.length})`;
-            chip.addEventListener("click", () => {
-                const target = document.getElementById(id);
-                if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
-            });
-            nav.appendChild(chip);
-
-            const h3 = document.createElement("h3");
-            h3.id = id;
-            h3.textContent = category;
-            container.appendChild(h3);
-
-            const grid = document.createElement("div");
-            grid.className = "symbol-grid";
-            symbols.forEach(symbol => {
+        function renderCategory(name) {
+            grid.innerHTML = "";
+            (data[name] || []).forEach(symbol => {
                 const card = document.createElement("div");
                 card.className = "symbol-card";
                 card.textContent = symbol;
                 card.addEventListener("click", () => copyToClipboard(symbol));
                 grid.appendChild(card);
             });
-            container.appendChild(grid);
         }
+
+        function switchCategory(name) {
+            nav.querySelectorAll(".tab").forEach(c => {
+                c.classList.toggle("active", c.dataset.group === name);
+            });
+            renderCategory(name);
+        }
+
+        categories.forEach(name => {
+            const chip = document.createElement("button");
+            chip.type = "button";
+            chip.className = "tab";
+            chip.dataset.group = name;
+            chip.textContent = `${shortLabel(name)} (${data[name].length})`;
+            chip.addEventListener("click", () => switchCategory(name));
+            nav.appendChild(chip);
+        });
+
+        switchCategory(categories[0]);
     } catch (err) {
         console.error("加载符号时出错", err);
         container.textContent = "符号加载失败，请检查 data/cute_symbols.json 文件是否存在。";
