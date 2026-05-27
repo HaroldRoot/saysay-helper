@@ -1,1 +1,31 @@
+# Workspace
 tmp/
+.cache/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors / IDE
+*.swp
+*.swo
+*~
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Logs
+*.log
+npm-debug.log*
+
+# Dependencies (in case anyone adds tooling later)
+node_modules/
+
+# Local env / secrets
+.env
+.env.local
+
+# Agent caches (skill files themselves are tracked)
+.agents/.cache/
+.agents/runtime/
