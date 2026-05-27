@@ -3,9 +3,37 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#FBF8F3" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0E0D0B" media="(prefers-color-scheme: dark)">
+    <meta name="description" content="一个面向 QQ 空间、微博、朋友圈等场景的文本变换玩具箱：花式字体、故障文字、颜文字、点阵字符画、空间表情。">
+    <meta property="og:title" content="说说文案编辑助手">
+    <meta property="og:description" content="花式字体、故障文字、颜文字、点阵字符画、空间表情。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://haroldroot.github.io/saysay-helper/">
+
     <title>说说文案编辑助手</title>
-    <link rel="stylesheet" href="style.css">
+
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23B5482A'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Georgia,serif' font-style='italic' font-size='36' fill='%23FBF8F3'%3ES%3C/text%3E%3C/svg%3E">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <script>
+        (function () {
+            try {
+                var t = localStorage.getItem("theme") || "light";
+                if (t !== "light" && t !== "dark" && t !== "auto") t = "light";
+                document.documentElement.setAttribute("data-theme", t);
+            } catch (e) {
+                document.documentElement.setAttribute("data-theme", "light");
+            }
+        })();
+    </script>
+
+    <link rel="stylesheet" href="styles/main.css">
+
     <script>
         var _hmt = _hmt || [];
         (function () {
@@ -18,43 +46,65 @@
 </head>
 
 <body>
+    <div class="noise-overlay" aria-hidden="true"></div>
+    <a href="#main" class="skip-link">跳转到主内容</a>
+
     <div id="app">
-        <nav class="tab-nav">
-            <div class="tab-row">
-                <button class="tab-link active" data-tab="font-replace">字体替换</button>
-                <button class="tab-link" data-tab="zalgo">故障文字</button>
-                <button class="tab-link" data-tab="qzone-emoji">空间表情</button>
-                <button class="tab-link" data-tab="kaomoji">颜文字</button>
-            </div>
-            <div class="tab-row">
-                <button class="tab-link" data-tab="combining-marks">组合符号</button>
-                <button class="tab-link" data-tab="subculture">亚文化</button>
-                <button class="tab-link" data-tab="dots">点阵文字</button>
-                <button class="tab-link" data-tab="about-us">关于本站</button>
+        <header class="topbar">
+            <a href="#" class="topbar__brand" aria-label="说说文案编辑助手 首页">
+                <span class="topbar__logo" aria-hidden="true">S</span>
+                <span class="topbar__name">说说文案编辑助手</span>
+            </a>
+            <button id="theme-toggle" class="theme-toggle" type="button" aria-label="切换主题">
+                <span class="theme-toggle__icon" aria-hidden="true">☀</span>
+            </button>
+        </header>
+
+        <nav class="tab-nav" aria-label="主功能">
+            <div class="tab-row" role="tablist">
+                <button class="tab-link active" data-tab="font-replace" role="tab" aria-selected="true" aria-controls="font-replace">字体替换</button>
+                <button class="tab-link" data-tab="zalgo" role="tab" aria-selected="false" aria-controls="zalgo">故障文字</button>
+                <button class="tab-link" data-tab="qzone-emoji" role="tab" aria-selected="false" aria-controls="qzone-emoji">空间表情</button>
+                <button class="tab-link" data-tab="kaomoji" role="tab" aria-selected="false" aria-controls="kaomoji">颜文字</button>
+                <button class="tab-link" data-tab="combining-marks" role="tab" aria-selected="false" aria-controls="combining-marks">组合符号</button>
+                <button class="tab-link" data-tab="subculture" role="tab" aria-selected="false" aria-controls="subculture">亚文化</button>
+                <button class="tab-link" data-tab="dots" role="tab" aria-selected="false" aria-controls="dots">点阵文字</button>
             </div>
         </nav>
 
-        <main>
-            <section id="font-replace" class="tab-content active">
-                <nav class="sub-tab-nav">
+        <main id="main">
+            <section id="font-replace" class="tab-content active" role="tabpanel" aria-labelledby="字体替换">
+                <header class="section-head">
+                    <h2 class="section-title">字体替换</h2>
+                    <span class="tooltip-container" tabindex="0">
+                        <span class="question-mark" aria-hidden="true">?</span>
+                        <span class="tooltip-text" role="tooltip">用 Unicode 数学字母把英文与数字替换成 19 种风格。点击任意结果卡片即可复制。</span>
+                    </span>
+                </header>
+
+                <nav class="sub-tab-nav" aria-label="字体子分类">
                     <button class="sub-tab-link active" data-subtab="font-english">英文专区</button>
                     <button class="sub-tab-link" data-subtab="font-numbers">数字专区</button>
                 </nav>
+
                 <div id="font-english" class="sub-tab-content active">
                     <div class="input-group">
-                        <label for="font-input">输入文本（英文和数字都可以）：</label>
-                        <textarea id="font-input" rows="1" placeholder="输入任意文本...">Tap to copy</textarea>
+                        <label for="font-input">输入文本（英文与数字都可以）</label>
+                        <textarea id="font-input" rows="1" placeholder="输入任意文本…">Tap to copy</textarea>
                     </div>
                     <div class="button-group">
                         <button id="clear-btn" class="action-btn">清空</button>
-                        <button id="uppercase-btn" class="action-btn toggle-btn">转换为全大写</button>
-                        <button id="lowercase-btn" class="action-btn toggle-btn">转换为全小写</button>
+                        <button id="uppercase-btn" class="action-btn toggle-btn">转为全大写</button>
+                        <button id="lowercase-btn" class="action-btn toggle-btn">转为全小写</button>
                     </div>
-                    <div id="font-output-container">
-                    </div>
+                    <div id="font-output-container"></div>
                 </div>
+
                 <div id="font-numbers" class="sub-tab-content">
-                    <textarea id="numbers-textarea" placeholder="点击下面的数字卡片，数字将自动添加到此处..."></textarea>
+                    <div class="input-group">
+                        <label for="numbers-textarea">点击下方数字卡片，会自动追加到此处</label>
+                        <textarea id="numbers-textarea" placeholder="点击下面的数字卡片，数字会自动添加到此处…"></textarea>
+                    </div>
                     <div class="button-group">
                         <button id="numbers-clear-btn" class="action-btn">清空</button>
                         <button id="numbers-copy-btn" class="action-btn">复制到剪贴板</button>
@@ -63,15 +113,24 @@
                 </div>
             </section>
 
-            <section id="combining-marks" class="tab-content">
-                <nav class="sub-tab-nav">
+            <section id="combining-marks" class="tab-content" role="tabpanel" aria-labelledby="组合符号">
+                <header class="section-head">
+                    <h2 class="section-title">组合符号</h2>
+                    <span class="tooltip-container" tabindex="0">
+                        <span class="question-mark" aria-hidden="true">?</span>
+                        <span class="tooltip-text" role="tooltip">在每个字符上叠加组合变音符号。基础预设挑常用的；高级页面可自定义任意符号序列。</span>
+                    </span>
+                </header>
+
+                <nav class="sub-tab-nav" aria-label="组合符号子分类">
                     <button class="sub-tab-link active" data-subtab="marks-preset">基础预设</button>
                     <button class="sub-tab-link" data-subtab="marks-advanced">高级</button>
                 </nav>
+
                 <div id="marks-preset" class="sub-tab-content active">
                     <div class="input-group">
-                        <label for="marks-input">输入文本：</label>
-                        <textarea id="marks-input" rows="1" placeholder="输入任意文本..."></textarea>
+                        <label for="marks-input">输入文本</label>
+                        <textarea id="marks-input" rows="1" placeholder="输入任意文本…"></textarea>
                     </div>
                     <div class="button-group">
                         <button id="marks-clear-btn" class="action-btn">清空</button>
@@ -80,27 +139,27 @@
                     </div>
                     <div class="input-group">
                         <div class="label-and-tip">
-                            <label>选择组合符号（可多选）：</label>
-                            <div class="tooltip-container">
-                                <div class="question-mark">?</div>
-                                <span class="tooltip-text">
-                                    对于组合符号的实现，不同字体的显示效果可能有较大差异。不能保证在不同设备上查看是一样的。
+                            <label>选择组合符号（可多选）</label>
+                            <span class="tooltip-container" tabindex="0">
+                                <span class="question-mark" aria-hidden="true">?</span>
+                                <span class="tooltip-text" role="tooltip">
+                                    不同字体下组合符号的渲染差异较大，无法保证在所有设备上显示一致。
                                 </span>
-                            </div>
+                            </span>
                         </div>
                         <div id="marks-buttons" class="marks-buttons"></div>
                     </div>
                     <div class="input-group">
-                        <label>处理方式：</label>
+                        <label>处理方式</label>
                         <div id="process-buttons" class="marks-buttons"></div>
                     </div>
-                    <div id="marks-output-container">
-                    </div>
+                    <div id="marks-output-container"></div>
                 </div>
+
                 <div id="marks-advanced" class="sub-tab-content">
                     <div class="input-group">
-                        <label for="marks-adv-input">输入文本：</label>
-                        <textarea id="marks-adv-input" rows="1" placeholder="输入任意文本..."></textarea>
+                        <label for="marks-adv-input">输入文本</label>
+                        <textarea id="marks-adv-input" rows="1" placeholder="输入任意文本…"></textarea>
                     </div>
                     <div class="button-group">
                         <button id="adv-clear-input-btn" class="action-btn">清空输入</button>
@@ -108,13 +167,12 @@
                         <button id="adv-lowercase-btn" class="action-btn toggle-btn">全小写</button>
                     </div>
                     <div class="input-group">
-                        <label>处理方式：</label>
-                        <div id="adv-process-buttons" class="marks-buttons">
-                        </div>
+                        <label>处理方式</label>
+                        <div id="adv-process-buttons" class="marks-buttons"></div>
                     </div>
                     <div id="marks-adv-output-container"></div>
                     <div class="sequence-builder input-group">
-                        <label style="margin-top: 8px;">当前组合符号序列：</label>
+                        <label>当前组合符号序列</label>
                         <div class="sequence-display-wrapper">
                             <div id="adv-sequence-preview" class="sequence-preview-box">无序列</div>
                         </div>
@@ -125,43 +183,55 @@
                         </div>
                     </div>
                     <div class="input-group">
-                        <label>选择符号添加到序列：</label>
+                        <label>选择符号添加到序列</label>
                         <div id="adv-marks-grid" class="marks-grid"></div>
                     </div>
                 </div>
             </section>
 
-            <section id="zalgo" class="tab-content">
+            <section id="zalgo" class="tab-content" role="tabpanel" aria-labelledby="故障文字">
+                <header class="section-head">
+                    <h2 class="section-title">故障文字</h2>
+                    <span class="tooltip-container" tabindex="0">
+                        <span class="question-mark" aria-hidden="true">?</span>
+                        <span class="tooltip-text" role="tooltip">通过堆叠组合变音符号让文字看起来出现故障。可控制形状、频率与振幅。Zalgo 文本，也称诅咒文本或故障文本。</span>
+                    </span>
+                </header>
+
                 <div class="input-group">
-                    <label for="zalgo-input">输入文本：</label>
-                    <textarea id="zalgo-input" rows="1" placeholder="输入任意文本..."></textarea>
-                    <div class="control-group">
-                        <div class="control">
-                            <label>形状：</label>
-                            <select id="zalgo-shape">
-                                <option value="classic">随机</option>
-                                <option value="sine-wave">正弦波</option>
-                                <option value="slope-up">上坡</option>
-                                <option value="slope-down">下坡</option>
-                            </select>
-                        </div>
-                        <div class="control" style="margin-top: 12px;">
-                            <label for="zalgo-frequency">频率（只对正弦波有效）：</label>
-                            <input id="zalgo-frequency" type="range" min="0" max="100" value="100">
-                        </div>
-                        <div class="control" style="margin-top: 16px;">
-                            <label for="zalgo-amplitude">幅度：</label>
-                            <input id="zalgo-amplitude" type="range" min="0" max="100" value="10">
-                        </div>
+                    <label for="zalgo-input">输入文本</label>
+                    <textarea id="zalgo-input" rows="1" placeholder="输入任意文本…"></textarea>
+                </div>
+
+                <div class="control-group">
+                    <div class="control">
+                        <label for="zalgo-shape">形状</label>
+                        <select id="zalgo-shape">
+                            <option value="classic">随机</option>
+                            <option value="sine-wave">正弦波</option>
+                            <option value="slope-up">上坡</option>
+                            <option value="slope-down">下坡</option>
+                        </select>
                     </div>
+                    <div class="control">
+                        <label for="zalgo-frequency">频率（仅对正弦波有效）</label>
+                        <input id="zalgo-frequency" type="range" min="0" max="100" value="100">
+                    </div>
+                    <div class="control">
+                        <label for="zalgo-amplitude">幅度</label>
+                        <input id="zalgo-amplitude" type="range" min="0" max="100" value="10">
+                    </div>
+                </div>
+
+                <div class="input-group">
                     <div class="label-and-tip">
-                        <label>故障选项（多选）：</label>
-                        <div class="tooltip-container">
-                            <div class="question-mark">?</div>
-                            <span class="tooltip-text">
-                                Zalgo 文本，也称为诅咒文本或故障文本，是一种经过大量组合字符（用于在字母上方或下方添加变音符号的 Unicode 符号）进行修改的数字文本，以显得令人恐惧或出现故障。
+                        <label>故障选项（可多选）</label>
+                        <span class="tooltip-container" tabindex="0">
+                            <span class="question-mark" aria-hidden="true">?</span>
+                            <span class="tooltip-text" role="tooltip">
+                                Zalgo 文本，也称诅咒文本或故障文本，通过大量组合字符让文字显得令人不安。
                             </span>
-                        </div>
+                        </span>
                     </div>
                     <div class="marks-buttons">
                         <button id="zalgo-up" class="action-btn toggle-btn active">顶部</button>
@@ -173,116 +243,146 @@
                         <button id="zalgo-upright" class="action-btn toggle-btn">斜向右上</button>
                     </div>
                 </div>
-                <div id="zalgo-output-container">
-                </div>
+
+                <div id="zalgo-output-container"></div>
             </section>
 
-            <section id="subculture" class="tab-content">
-                <div class="subculture-module">
-                    <div class="module-header">
-                        <h2 class="sub-title">火星文</h2>
-                        <div class="tooltip-container">
-                            <div class="question-mark">?</div>
-                            <span class="tooltip-text">
-                                火星文，字面上解作火星人文字，但实际上是指一类网络语言。随着互联网的普及，年轻网民为求方便或彰显个性，开始大量使用同音字、音近字、特殊符号来表音的文字。由于这种文字与日常生活中使用的文字相比有明显的不同，文法也相当奇异，难以读懂，故称为火星文，取“地球人看不懂的文字”的讽刺效果。
+            <section id="subculture" class="tab-content" role="tabpanel" aria-labelledby="亚文化">
+                <header class="section-head">
+                    <h2 class="section-title">亚文化</h2>
+                    <span class="tooltip-container" tabindex="0">
+                        <span class="question-mark" aria-hidden="true">?</span>
+                        <span class="tooltip-text" role="tooltip">火星文、Leet 1337、可爱符号 —— 让网络早期的亚文化在你的说说里复活。</span>
+                    </span>
+                </header>
+
+                <article class="subculture-module">
+                    <header class="module-header">
+                        <h3 class="sub-title">火星文</h3>
+                        <span class="tooltip-container" tabindex="0">
+                            <span class="question-mark" aria-hidden="true">?</span>
+                            <span class="tooltip-text" role="tooltip">
+                                火星文，字面解作火星人文字，实指一类网络语言：年轻网民用同音字、音近字、特殊符号表音，文法奇异，取「地球人看不懂的文字」的讽刺效果。
                             </span>
-                        </div>
-                    </div>
+                        </span>
+                    </header>
                     <div class="input-group">
-                        <textarea id="martian-input" rows="1" placeholder="输入文本进行实时转换..."></textarea>
+                        <textarea id="martian-input" rows="1" placeholder="输入文本进行实时转换…"></textarea>
                     </div>
                     <div class="button-group">
                         <button id="jt2hx-btn" class="action-btn toggle-btn active">简体字 → 火星文</button>
                         <button id="hx2jt-btn" class="action-btn toggle-btn">火星文 → 简体字</button>
                     </div>
                     <div id="martian-output-container" class="output-container"></div>
-                </div>
+                </article>
 
                 <hr class="divider">
 
-                <div class="subculture-module">
-                    <div class="module-header">
-                        <h2 class="sub-title">Leet</h2>
-                        <div class="tooltip-container">
-                            <div class="question-mark">?</div>
-                            <span class="tooltip-text">
-                                Leet（L337, 1337），又称黑客语，是指一种发源于西方国家的 BBS、在线游戏和黑客社群所使用的文字书写方式。通常是把拉丁字母转变成数字或是特殊符号，例如 E 写成
-                                3、A 写成 @ 等。
+                <article class="subculture-module">
+                    <header class="module-header">
+                        <h3 class="sub-title">Leet</h3>
+                        <span class="tooltip-container" tabindex="0">
+                            <span class="question-mark" aria-hidden="true">?</span>
+                            <span class="tooltip-text" role="tooltip">
+                                Leet（L337, 1337），又称黑客语，发源于西方 BBS、在线游戏和黑客社群。通常把拉丁字母转成数字或特殊符号，例如 E → 3，A → @。
                             </span>
-                        </div>
-                    </div>
+                        </span>
+                    </header>
                     <div class="input-group">
-                        <textarea id="leet-input" rows="1" placeholder="输入英文..."></textarea>
+                        <textarea id="leet-input" rows="1" placeholder="输入英文…"></textarea>
                     </div>
                     <div class="button-group">
                         <button id="leet-btn" class="action-btn">生成 Leet 变体</button>
                     </div>
                     <div id="leet-output-container" class="output-container"></div>
-                </div>
+                </article>
 
                 <hr class="divider">
 
-                <div class="cute-symbols-section">
+                <section class="cute-symbols-section" aria-label="可爱符号">
                     <div id="cute-symbols-container">
-                        <p style="text-align:center; color:#999;">正在加载可爱符号...</p>
+                        <p class="hint">正在加载可爱符号…</p>
                     </div>
-                </div>
+                </section>
             </section>
 
-            <section id="dots" class="tab-content">
-                <div class="input-group">
-                    <div>
-                        <label for="inputChar">输入文本：</label>
-                        <textarea id="inputChar" placeholder="请输入文字，支持连续转换...">龙</textarea>
-                    </div>
-                    <div>
-                        <label for="fontSelect">注意：下拉框要选择的是字符画将“看起来像什么字体”，当所选字体在设备上找不到时，该选择失效。</label>
-                        <select id="fontSelect">
-                            <option value="SimSun, 宋体, serif">宋体 (SimSun)</option>
-                            <option value="KaiTi, 楷体, cursive">楷体 (KaiTi)</option>
-                            <option value="Microsoft YaHei, 微软雅黑, sans-serif" selected>微软雅黑 (默认)</option>
-                            <option value="SimHei, 黑体, sans-serif">黑体 (SimHei)</option>
-                        </select>
-                    </div>
-                    <div class="control-group">
-                        <div class="two-col">
-                            <div class="control">
-                                <label for="dotSize">整体大小：</label>
-                                <input type="range" id="dotSize" value="40" min="16" max="64" step="8">
-                            </div>
+            <section id="dots" class="tab-content" role="tabpanel" aria-labelledby="点阵文字">
+                <header class="section-head">
+                    <h2 class="section-title">点阵文字</h2>
+                    <span class="tooltip-container" tabindex="0">
+                        <span class="question-mark" aria-hidden="true">?</span>
+                        <span class="tooltip-text" role="tooltip">在 Canvas 中渲染汉字，再转写为 Braille 盲文点阵字符画。</span>
+                    </span>
+                </header>
 
-                            <div class="control">
-                                <label for="dotThreshold">笔画粗细：</label>
-                                <input type="range" id="dotThreshold" value="64" min="0" max="254">
-                            </div>
+                <div class="input-group">
+                    <label for="inputChar">输入文本</label>
+                    <textarea id="inputChar" placeholder="请输入文字，支持连续转换…">龙</textarea>
+                </div>
+
+                <div class="input-group">
+                    <label for="fontSelect">字符画"看起来像"的字体（设备无此字体时该选项失效）</label>
+                    <select id="fontSelect">
+                        <option value="SimSun, 宋体, serif">宋体 (SimSun)</option>
+                        <option value="KaiTi, 楷体, cursive">楷体 (KaiTi)</option>
+                        <option value="Microsoft YaHei, 微软雅黑, sans-serif" selected>微软雅黑（默认）</option>
+                        <option value="SimHei, 黑体, sans-serif">黑体 (SimHei)</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <div class="two-col">
+                        <div class="control">
+                            <label for="dotSize">整体大小</label>
+                            <input type="range" id="dotSize" value="40" min="16" max="64" step="8">
+                        </div>
+                        <div class="control">
+                            <label for="dotThreshold">笔画粗细</label>
+                            <input type="range" id="dotThreshold" value="64" min="0" max="254">
                         </div>
                     </div>
-
                 </div>
 
                 <div id="dots-output-container"></div>
-
                 <canvas id="hiddenCanvas"></canvas>
             </section>
 
-            <section id="qzone-emoji" class="tab-content">
+            <section id="qzone-emoji" class="tab-content" role="tabpanel" aria-labelledby="空间表情">
+                <header class="section-head">
+                    <h2 class="section-title">空间表情</h2>
+                    <span class="tooltip-container" tabindex="0">
+                        <span class="question-mark" aria-hidden="true">?</span>
+                        <span class="tooltip-text" role="tooltip">浏览 QQ 空间经典表情，按分类切换；支持 [em]eXXXX[/em] 代码实时预览。图片资源加载较慢是正常的。</span>
+                    </span>
+                </header>
+
                 <div id="top-bar">
-                    <textarea id="qzone-input"
-                        placeholder="在此输入文本，支持 [em]e123[/em] 代码，下面会显示预览。图片资源加载较慢是正常的，请耐心等待..."></textarea>
-                    <div id="preview"></div>
+                    <textarea id="qzone-input" placeholder="在此输入文本，支持 [em]e123[/em] 代码，下面会显示预览…"></textarea>
+                    <div id="preview" aria-live="polite"></div>
                 </div>
-                <div id="tabs" aria-hidden="false"></div>
+                <div id="tabs" role="tablist" aria-label="表情分组"></div>
                 <div id="gallery"></div>
             </section>
 
-            <section id="kaomoji" class="tab-content">
-                <div id="kaomoji-tabs" class="tabs-container"></div>
+            <section id="kaomoji" class="tab-content" role="tabpanel" aria-labelledby="颜文字">
+                <header class="section-head">
+                    <h2 class="section-title">颜文字</h2>
+                    <span class="tooltip-container" tabindex="0">
+                        <span class="question-mark" aria-hidden="true">?</span>
+                        <span class="tooltip-text" role="tooltip">按情绪分类的颜文字库，点击即复制。</span>
+                    </span>
+                </header>
+
+                <div id="kaomoji-tabs" class="tabs-container" role="tablist" aria-label="颜文字分组"></div>
                 <div id="kaomoji-gallery" class="kaomoji-grid"></div>
             </section>
+        </main>
 
-            <section id="about-us" class="tab-content">
+        <aside class="about-bottom" aria-label="关于本站">
+            <div class="about-stack">
                 <div class="share-header">
-                    <h3>ﾟ+*:ꔫ:*﹤你喜欢吗﹥*:ꔫ:*+ﾟ<br>☆*:･ﾟ✧将链接分享给朋友吧✧ﾟ･:*☆<br>ദ്ദി(˵ •̀ ᴗ - ˵ ) ✧</h3>
+                    <h3>把文字写得 <em>不一样</em></h3>
+                    <p>花式字体、故障文本、颜文字、点阵字符画、QQ 空间表情。选一个工具，输入文字，复制走人。</p>
                 </div>
 
                 <div class="link-card main-link">
@@ -290,24 +390,28 @@
                 </div>
 
                 <div class="other-tools">
-                    <h4>🛠️ 更多实用工具</h4>
+                    <h4>更多实用工具</h4>
                     <div class="tool-item">
                         <h5>QQ 空间说说表情转换器</h5>
-                        <p>将说说中的 <code>[em]...[/em]</code> 或 <code>/表情名</code> 代码一键转换成标准的 Unicode Emoji。例如：</p>
-                        <p><code>/呲牙</code> → 😁</p>
-                        <p><code>[em]e402402[/em]</code> → 🥵</p>
-                        <a href="https://haroldroot.github.io/saysay-converter/" target="_blank" class="tool-link">
-                            查看工具：haroldroot.github.io/saysay-converter/
+                        <p>把说说中的 <code>[em]…[/em]</code> 或 <code>/表情名</code> 代码一键转成标准 Unicode Emoji。</p>
+                        <p><code>/呲牙</code> → 😁　<code>[em]e402402[/em]</code> → 🥵</p>
+                        <a href="https://haroldroot.github.io/saysay-converter/" target="_blank" rel="noopener noreferrer" class="tool-link">
+                            查看工具 → haroldroot.github.io/saysay-converter/
                         </a>
                     </div>
                 </div>
-            </section>
-        </main>
+            </div>
+        </aside>
+
+        <footer class="site-footer">
+            <span>© <a href="https://github.com/HaroldRoot" target="_blank" rel="noopener noreferrer">@HaroldRoot</a></span>
+            <span><a href="https://github.com/HaroldRoot/saysay-helper" target="_blank" rel="noopener noreferrer">View on GitHub</a></span>
+        </footer>
     </div>
 
-    <div id="copy-toast" class="toast">复制成功！</div>
+    <div id="copy-toast" class="toast" role="status" aria-live="polite">已复制</div>
 
-    <script src="script.js"></script>
+    <script type="module" src="scripts/main.js"></script>
 </body>
 
 </html>
