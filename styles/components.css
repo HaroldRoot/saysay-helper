@@ -293,7 +293,7 @@ input[type="range"]::-moz-range-thumb {
 .tooltip-text {
     position: absolute;
     top: calc(100% + var(--space-2));
-    left: 0;
+    left: 50%;
     width: max-content;
     max-width: min(280px, calc(100vw - 2rem));
     background: var(--text);
@@ -306,7 +306,7 @@ input[type="range"]::-moz-range-thumb {
     z-index: var(--z-modal);
     opacity: 0;
     visibility: hidden;
-    transform: translateY(-4px);
+    transform: translate(-50%, -4px);
     transition: opacity var(--dur-fast) var(--ease-spring),
                 transform var(--dur-fast) var(--ease-spring),
                 visibility var(--dur-fast);
@@ -318,13 +318,24 @@ input[type="range"]::-moz-range-thumb {
 .tooltip-container:active .tooltip-text {
     opacity: 1;
     visibility: visible;
-    transform: translateY(0);
+    transform: translate(-50%, 0);
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
     .tooltip-text {
-        left: auto;
-        right: 0;
+        position: fixed;
+        top: auto;
+        bottom: var(--space-4);
+        left: var(--space-4);
+        right: var(--space-4);
+        max-width: none;
+        width: auto;
+        transform: translateY(8px);
+    }
+    .tooltip-container:hover .tooltip-text,
+    .tooltip-container:focus-within .tooltip-text,
+    .tooltip-container:active .tooltip-text {
+        transform: translateY(0);
     }
 }
 
