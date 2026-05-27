@@ -35,7 +35,7 @@
     color: var(--text);
     font-family: var(--font-serif);
     font-size: var(--fs-md);
-    font-weight: 500;
+    font-weight: 600;
     letter-spacing: -0.01em;
     text-decoration: none;
     transition: opacity var(--dur-fast) var(--ease-spring);
