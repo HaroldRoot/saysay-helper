@@ -15,7 +15,7 @@
 
     <title>说说文案编辑助手</title>
 
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23B5482A'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Georgia,serif' font-style='italic' font-size='36' fill='%23FBF8F3'%3ES%3C/text%3E%3C/svg%3E">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23B5482A'/%3E%3Ctext x='32' y='42' text-anchor='middle' font-family='ui-monospace,monospace' font-size='30' font-weight='600' fill='%23FBF8F3'%3E:)%3C/text%3E%3C/svg%3E">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -52,7 +52,7 @@
     <div id="app">
         <header class="topbar">
             <a href="#" class="topbar__brand" aria-label="说说文案编辑助手 首页">
-                <span class="topbar__logo" aria-hidden="true">S</span>
+                <span class="topbar__logo" aria-hidden="true">:)</span>
                 <span class="topbar__name">说说文案编辑助手</span>
             </a>
             <button id="theme-toggle" class="theme-toggle" type="button" aria-label="切换主题">
@@ -68,6 +68,7 @@
                 <button class="tab-link" data-tab="kaomoji" role="tab" aria-selected="false" aria-controls="kaomoji">颜文字</button>
                 <button class="tab-link" data-tab="combining-marks" role="tab" aria-selected="false" aria-controls="combining-marks">组合符号</button>
                 <button class="tab-link" data-tab="subculture" role="tab" aria-selected="false" aria-controls="subculture">亚文化</button>
+                <button class="tab-link" data-tab="cute-symbols" role="tab" aria-selected="false" aria-controls="cute-symbols">可爱符号</button>
                 <button class="tab-link" data-tab="dots" role="tab" aria-selected="false" aria-controls="dots">点阵文字</button>
             </div>
         </nav>
@@ -248,14 +249,6 @@
             </section>
 
             <section id="subculture" class="tab-content" role="tabpanel" aria-labelledby="亚文化">
-                <header class="section-head">
-                    <h2 class="section-title">亚文化</h2>
-                    <span class="tooltip-container" tabindex="0">
-                        <span class="question-mark" aria-hidden="true">?</span>
-                        <span class="tooltip-text" role="tooltip">火星文、Leet 1337、可爱符号 —— 让网络早期的亚文化在你的说说里复活。</span>
-                    </span>
-                </header>
-
                 <article class="subculture-module">
                     <header class="module-header">
                         <h3 class="sub-title">火星文</h3>
@@ -296,14 +289,19 @@
                     </div>
                     <div id="leet-output-container" class="output-container"></div>
                 </article>
+            </section>
 
-                <hr class="divider">
-
-                <section class="cute-symbols-section" aria-label="可爱符号">
-                    <div id="cute-symbols-container">
-                        <p class="hint">正在加载可爱符号…</p>
-                    </div>
-                </section>
+            <section id="cute-symbols" class="tab-content" role="tabpanel" aria-labelledby="可爱符号">
+                <header class="section-head">
+                    <h2 class="section-title">可爱符号</h2>
+                    <span class="tooltip-container" tabindex="0">
+                        <span class="question-mark" aria-hidden="true">?</span>
+                        <span class="tooltip-text" role="tooltip">按主题分类的可爱符号库，点击即复制。</span>
+                    </span>
+                </header>
+                <div id="cute-symbols-container">
+                    <p class="hint">正在加载可爱符号…</p>
+                </div>
             </section>
 
             <section id="dots" class="tab-content" role="tabpanel" aria-labelledby="点阵文字">
@@ -380,31 +378,21 @@
 
         <aside class="about-bottom" aria-label="关于本站">
             <div class="about-stack">
-                <div class="share-header">
-                    <h3>把文字写得 <em>不一样</em></h3>
-                    <p>花式字体、故障文本、颜文字、点阵字符画、QQ 空间表情。选一个工具，输入文字，复制走人。</p>
-                </div>
-
-                <div class="link-card main-link">
-                    <div id="url-display" class="url-display">haroldroot.github.io/saysay-helper/</div>
-                </div>
-
                 <div class="other-tools">
                     <h4>更多实用工具</h4>
                     <div class="tool-item">
-                        <h5>QQ 空间说说表情转换器</h5>
+                        <a href="https://haroldroot.github.io/saysay-converter/" target="_blank" rel="noopener noreferrer" class="tool-link tool-link--title">
+                            QQ 空间说说表情转换器
+                        </a>
                         <p>把说说中的 <code>[em]…[/em]</code> 或 <code>/表情名</code> 代码一键转成标准 Unicode Emoji。</p>
                         <p><code>/呲牙</code> → 😁　<code>[em]e402402[/em]</code> → 🥵</p>
-                        <a href="https://haroldroot.github.io/saysay-converter/" target="_blank" rel="noopener noreferrer" class="tool-link">
-                            查看工具 → haroldroot.github.io/saysay-converter/
-                        </a>
                     </div>
                 </div>
             </div>
         </aside>
 
         <footer class="site-footer">
-            <span>© <a href="https://github.com/HaroldRoot" target="_blank" rel="noopener noreferrer">@HaroldRoot</a></span>
+            <span>© <a href="https://github.com/HaroldRoot" target="_blank" rel="noopener noreferrer">HaroldRoot</a></span>
             <span><a href="https://github.com/HaroldRoot/saysay-helper" target="_blank" rel="noopener noreferrer">View on GitHub</a></span>
         </footer>
     </div>

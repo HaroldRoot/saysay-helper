@@ -6,10 +6,10 @@ import { initMarksPreset } from "./features/marks-preset.js";
 import { initMarksAdvanced, triggerAdvancedUpdate } from "./features/marks-advanced.js";
 import { initZalgo } from "./features/zalgo.js";
 import { initSubculture } from "./features/subculture.js";
+import { initCuteSymbols } from "./features/cute-symbols.js";
 import { initDots } from "./features/dots.js";
 import { initQzone } from "./features/qzone.js";
 import { initKaomoji } from "./features/kaomoji.js";
-import { initAbout } from "./features/about.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     initThemeToggle();
@@ -24,8 +24,8 @@ document.addEventListener("DOMContentLoaded", () => {
     initMarksAdvanced();
     initZalgo();
     initSubculture();
+    initCuteSymbols();
     initDots();
     initQzone();
     initKaomoji();
-    initAbout();
 });
