@@ -268,8 +268,8 @@ main {
    About — moved to bottom of <main>
    ============================================================ */
 .about-bottom {
-    margin-top: var(--space-10);
-    padding-top: var(--space-6);
+    margin-top: var(--space-5);
+    padding-top: var(--space-4);
     border-top: 1px dashed var(--hairline);
 }
 
