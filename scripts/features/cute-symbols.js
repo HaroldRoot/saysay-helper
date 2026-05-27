@@ -25,12 +25,20 @@ export async function initCuteSymbols() {
         nav.setAttribute("aria-label", "可爱符号分组");
         container.appendChild(nav);
 
+        const heading = document.createElement("h3");
+        heading.id = "cute-symbols-heading";
+        container.appendChild(heading);
+
         const grid = document.createElement("div");
         grid.className = "symbol-grid";
         grid.id = "cute-symbols-grid";
         container.appendChild(grid);
 
-        function renderCategory(name) {
+        function switchCategory(name) {
+            nav.querySelectorAll(".tab").forEach(c => {
+                c.classList.toggle("active", c.dataset.group === name);
+            });
+            heading.textContent = name;
             grid.innerHTML = "";
             (data[name] || []).forEach(symbol => {
                 const card = document.createElement("div");
@@ -39,13 +47,6 @@ export async function initCuteSymbols() {
                 card.addEventListener("click", () => copyToClipboard(symbol));
                 grid.appendChild(card);
             });
-        }
-
-        function switchCategory(name) {
-            nav.querySelectorAll(".tab").forEach(c => {
-                c.classList.toggle("active", c.dataset.group === name);
-            });
-            renderCategory(name);
         }
 
         categories.forEach(name => {

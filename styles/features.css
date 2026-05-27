@@ -169,6 +169,20 @@
     margin-bottom: var(--space-3);
 }
 
+#cute-symbols-heading {
+    color: var(--pink);
+    font-family: var(--font-serif);
+    font-size: var(--fs-lg);
+    font-weight: 500;
+    text-align: center;
+    padding: var(--space-2);
+    margin: var(--space-2) auto var(--space-3);
+    width: fit-content;
+    max-width: 100%;
+    border-bottom: 1px solid var(--pink-tint);
+    word-break: break-word;
+}
+
 .symbol-grid {
     display: flex;
     flex-wrap: wrap;
