@@ -1,5 +1,9 @@
 import { copyToClipboard } from "../shared/clipboard.js";
 
+function categoryToId(name) {
+    return "cute-cat-" + name.replace(/\s+/g, "-").replace(/[^\p{L}\p{N}\-]/gu, "");
+}
+
 export async function initCuteSymbols() {
     const container = document.getElementById("cute-symbols-container");
     if (!container) return;
@@ -9,10 +13,33 @@ export async function initCuteSymbols() {
         if (!response.ok) throw new Error(`无法加载符号库: ${response.status}`);
         const data = await response.json();
         container.innerHTML = "";
+
+        const nav = document.createElement("div");
+        nav.id = "cute-symbols-nav";
+        nav.className = "tabs-container";
+        nav.setAttribute("role", "tablist");
+        nav.setAttribute("aria-label", "可爱符号分组");
+        container.appendChild(nav);
+
         for (const [category, symbols] of Object.entries(data)) {
+            const id = categoryToId(category);
+
+            const chip = document.createElement("button");
+            chip.type = "button";
+            chip.className = "tab";
+            chip.dataset.target = id;
+            chip.textContent = `${category} (${symbols.length})`;
+            chip.addEventListener("click", () => {
+                const target = document.getElementById(id);
+                if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+            });
+            nav.appendChild(chip);
+
             const h3 = document.createElement("h3");
+            h3.id = id;
             h3.textContent = category;
             container.appendChild(h3);
+
             const grid = document.createElement("div");
             grid.className = "symbol-grid";
             symbols.forEach(symbol => {
