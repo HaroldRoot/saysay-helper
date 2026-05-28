@@ -252,6 +252,7 @@
 }
 
 .emoji {
+    display: inline-block;
     height: 22px;
     vertical-align: middle;
 }
