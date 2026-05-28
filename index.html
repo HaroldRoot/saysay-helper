@@ -79,14 +79,13 @@
                     <h2 class="section-title">字体替换</h2>
                     <span class="tooltip-container" tabindex="0">
                         <span class="question-mark" aria-hidden="true">?</span>
-                        <span class="tooltip-text" role="tooltip">用 Unicode 数学字母把英文与数字替换成 19 种风格。点击任意结果卡片即可复制。</span>
+                        <span class="tooltip-text" role="tooltip">把英文与数字替换成同义 Unicode 字符。点击任意结果卡片即可复制。</span>
                     </span>
+                    <nav class="sub-tab-nav section-head-tabs" aria-label="字体子分类">
+                        <button class="sub-tab-link active" data-subtab="font-english">英文专区</button>
+                        <button class="sub-tab-link" data-subtab="font-numbers">数字专区</button>
+                    </nav>
                 </header>
-
-                <nav class="sub-tab-nav" aria-label="字体子分类">
-                    <button class="sub-tab-link active" data-subtab="font-english">英文专区</button>
-                    <button class="sub-tab-link" data-subtab="font-numbers">数字专区</button>
-                </nav>
 
                 <div id="font-english" class="sub-tab-content active">
                     <div class="input-group">
@@ -102,14 +101,7 @@
                 </div>
 
                 <div id="font-numbers" class="sub-tab-content">
-                    <div class="input-group">
-                        <label for="numbers-textarea">点击下方数字卡片，会自动追加到此处</label>
-                        <textarea id="numbers-textarea" placeholder="点击下面的数字卡片，数字会自动添加到此处…"></textarea>
-                    </div>
-                    <div class="button-group">
-                        <button id="numbers-clear-btn" class="action-btn">清空</button>
-                        <button id="numbers-copy-btn" class="action-btn">复制到剪贴板</button>
-                    </div>
+                    <textarea id="numbers-textarea" rows="2" aria-label="数字插入区" placeholder="点击下方数字卡片插入到光标位置；点击「复制整行」复制整套风格…"></textarea>
                     <div id="numbers-display"></div>
                 </div>
             </section>
@@ -225,15 +217,7 @@
                 </div>
 
                 <div class="input-group">
-                    <div class="label-and-tip">
-                        <label>故障选项（可多选）</label>
-                        <span class="tooltip-container" tabindex="0">
-                            <span class="question-mark" aria-hidden="true">?</span>
-                            <span class="tooltip-text" role="tooltip">
-                                Zalgo 文本，也称诅咒文本或故障文本，通过大量组合字符让文字显得令人不安。
-                            </span>
-                        </span>
-                    </div>
+                    <label>故障选项（可多选）</label>
                     <div class="marks-buttons">
                         <button id="zalgo-up" class="action-btn toggle-btn active">顶部</button>
                         <button id="zalgo-mid" class="action-btn toggle-btn active">中部</button>
@@ -358,10 +342,6 @@
             <section id="kaomoji" class="tab-content" role="tabpanel" aria-labelledby="颜文字">
                 <header class="section-head">
                     <h2 class="section-title">颜文字</h2>
-                    <span class="tooltip-container" tabindex="0">
-                        <span class="question-mark" aria-hidden="true">?</span>
-                        <span class="tooltip-text" role="tooltip">按情绪分类的颜文字库，点击即复制。</span>
-                    </span>
                 </header>
 
                 <div id="kaomoji-tabs" class="tabs-container" role="tablist" aria-label="颜文字分组"></div>
@@ -391,6 +371,20 @@
     </div>
 
     <div id="copy-toast" class="toast" role="status" aria-live="polite">已复制</div>
+
+    <div id="numbers-fab" class="fab-stack" hidden>
+        <button id="numbers-fab-toc" class="fab" type="button" aria-label="数字主题目录" aria-haspopup="menu" aria-expanded="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+        </button>
+        <button id="numbers-fab-top" class="fab" type="button" aria-label="回到顶部">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+        <div id="numbers-fab-menu" class="fab-menu" role="menu" hidden></div>
+    </div>
 
     <script type="module" src="scripts/main.js"></script>
 </body>
