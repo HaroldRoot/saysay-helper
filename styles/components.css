@@ -1,10 +1,6 @@
 /* ============================================================
    Form controls — textarea, input, select
    ============================================================ */
-.input-group {
-    margin-bottom: var(--space-3);
-}
-
 .input-group label,
 label {
     display: block;
@@ -61,6 +57,10 @@ select {
     background-repeat: no-repeat;
     background-position: right var(--space-3) center;
     padding-right: var(--space-8);
+}
+
+#fontSelect {
+    margin-bottom: var(--space-1);
 }
 
 input[type="range"] {
@@ -157,6 +157,10 @@ input[type="range"]::-moz-range-thumb {
 }
 .action-btn.btn-danger:hover {
     background: rgba(181, 61, 42, 0.12);
+}
+
+#marks-buttons .mark-btn {
+    padding: var(--space-1) var(--space-4);
 }
 
 .button-group {
@@ -263,6 +267,9 @@ input[type="range"]::-moz-range-thumb {
 .font-result-card:active {
     transform: scale(0.99);
     box-shadow: var(--shadow-sm);
+}
+#marks-output-container, #marks-adv-output-container {
+    margin-bottom: var(--space-2);
 }
 
 /* ============================================================
